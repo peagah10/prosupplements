@@ -391,6 +391,21 @@
             border-radius: 8px;
             margin: 10px auto;
         }
+
+        .error-message {
+            background-color: #FEF2F2;
+            border: 1px solid #FECACA;
+            color: #DC2626;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+        }
+
+        .dark .error-message {
+            background-color: #7F1D1D;
+            border-color: #991B1B;
+            color: #FCA5A5;
+        }
     </style>
 </head>
 <body class="bg-light dark:bg-dark text-gray-800 dark:text-white">
@@ -638,6 +653,7 @@
                         <!-- Formulário para adicionar/editar produto -->
                         <div id="product-form-container" class="admin-form-container hidden mb-8">
                             <h3 id="product-form-title" class="text-xl font-bold mb-6">Adicionar Novo Produto</h3>
+                            <div id="product-form-error" class="error-message hidden"></div>
                             <form id="product-form" class="admin-form-grid">
                                 <div class="admin-form-group">
                                     <label for="product-name">Nome do Produto*</label>
@@ -704,6 +720,7 @@
                         <!-- Formulário para adicionar/editar categoria -->
                         <div id="category-form-container" class="admin-form-container hidden mb-8">
                             <h3 id="category-form-title" class="text-xl font-bold mb-6">Adicionar Nova Categoria</h3>
+                            <div id="category-form-error" class="error-message hidden"></div>
                             <form id="category-form">
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div class="admin-form-group">
@@ -713,7 +730,8 @@
                                     
                                     <div class="admin-form-group">
                                         <label for="category-code">Código da Categoria*</label>
-                                        <input type="text" id="category-code" class="admin-form-input" required placeholder="ex: whey, creatine, etc">
+                                        <input type="text" id="category-code" class="admin-form-input" required placeholder="ex: whey, creatine, etc" pattern="[a-z0-9-]+">
+                                        <small class="text-gray-500">Apenas letras minúsculas, números e hífens</small>
                                     </div>
                                     
                                     <div class="admin-form-group col-span-2">
@@ -952,92 +970,206 @@
 
         // Salvar produto
         async function saveProduct(productData) {
-            if (!supabase) return false;
+            if (!supabase) return { success: false, error: 'Supabase não inicializado' };
 
             try {
+                // Validações básicas
+                if (!productData.name || !productData.category || !productData.description) {
+                    return { success: false, error: 'Todos os campos obrigatórios devem ser preenchidos' };
+                }
+
+                if (productData.price <= 0) {
+                    return { success: false, error: 'O preço deve ser maior que zero' };
+                }
+
                 if (currentEditingId) {
-                    const { error } = await supabase
+                    const { data, error } = await supabase
                         .from('products')
                         .update(productData)
-                        .eq('id', currentEditingId);
+                        .eq('id', currentEditingId)
+                        .select();
                     if (error) throw error;
                 } else {
-                    const { error } = await supabase
+                    const { data, error } = await supabase
                         .from('products')
-                        .insert([productData]);
+                        .insert([productData])
+                        .select();
                     if (error) throw error;
                 }
 
                 await loadData();
-                return true;
+                return { success: true };
             } catch (error) {
-                console.error('Erro ao salvar produto:', error);
-                return false;
+                console.error('Erro detalhado ao salvar produto:', error);
+                let errorMessage = 'Erro desconhecido';
+                
+                if (error.message) {
+                    errorMessage = error.message;
+                } else if (error.code === '23502') {
+                    errorMessage = 'Campo obrigatório não preenchido';
+                } else if (error.code === '23514') {
+                    errorMessage = 'Dados inválidos';
+                }
+                
+                return { success: false, error: errorMessage };
             }
         }
 
         // Salvar categoria
         async function saveCategory(categoryData) {
-            if (!supabase) return false;
+            if (!supabase) return { success: false, error: 'Supabase não inicializado' };
 
             try {
+                // Validações básicas
+                if (!categoryData.code || !categoryData.name || !categoryData.description) {
+                    return { success: false, error: 'Todos os campos obrigatórios devem ser preenchidos' };
+                }
+
+                // Garantir que o código seja lowercase e sem espaços
+                categoryData.code = categoryData.code.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+                
+                // Validar formato do código
+                if (!/^[a-z0-9-]+$/.test(categoryData.code)) {
+                    return { success: false, error: 'O código deve conter apenas letras minúsculas, números e hífens' };
+                }
+
                 if (currentEditingId) {
-                    const { error } = await supabase
+                    // Para edição, verificar se o novo código já existe (se mudou)
+                    if (currentEditingId !== categoryData.code) {
+                        const { data: existing } = await supabase
+                            .from('categories')
+                            .select('code')
+                            .eq('code', categoryData.code)
+                            .single();
+
+                        if (existing) {
+                            return { success: false, error: `Categoria com código "${categoryData.code}" já existe` };
+                        }
+                    }
+
+                    const { data, error } = await supabase
                         .from('categories')
                         .update(categoryData)
-                        .eq('code', currentEditingId);
+                        .eq('code', currentEditingId)
+                        .select();
                     if (error) throw error;
                 } else {
-                    const { error } = await supabase
+                    // Verificar se o código já existe
+                    const { data: existing } = await supabase
                         .from('categories')
-                        .insert([categoryData]);
+                        .select('code')
+                        .eq('code', categoryData.code)
+                        .single();
+
+                    if (existing) {
+                        return { success: false, error: `Categoria com código "${categoryData.code}" já existe` };
+                    }
+
+                    const { data, error } = await supabase
+                        .from('categories')
+                        .insert([categoryData])
+                        .select();
                     if (error) throw error;
                 }
 
                 await loadData();
-                return true;
+                return { success: true };
             } catch (error) {
-                console.error('Erro ao salvar categoria:', error);
-                return false;
+                console.error('Erro detalhado ao salvar categoria:', error);
+                let errorMessage = 'Erro desconhecido';
+                
+                if (error.message) {
+                    errorMessage = error.message;
+                } else if (error.code === '23505') {
+                    errorMessage = 'Categoria com este código já existe';
+                } else if (error.code === '23502') {
+                    errorMessage = 'Campo obrigatório não preenchido';
+                } else if (error.code === '42501') {
+                    errorMessage = 'Permissão negada. Verifique as configurações do banco';
+                }
+                
+                return { success: false, error: errorMessage };
             }
         }
 
         // Excluir produto
         async function deleteProduct(id) {
-            if (!confirm('Tem certeza que deseja excluir este produto?')) return;
+            if (!showConfirmDialog('Tem certeza que deseja excluir este produto?', async () => {
+                try {
+                    const { error } = await supabase
+                        .from('products')
+                        .delete()
+                        .eq('id', id);
 
-            try {
-                const { error } = await supabase
-                    .from('products')
-                    .delete()
-                    .eq('id', id);
-
-                if (error) throw error;
-                await loadData();
-                showAlert('Produto excluído com sucesso!');
-            } catch (error) {
-                console.error('Erro ao excluir produto:', error);
-                showAlert('Erro ao excluir produto!', 'error');
-            }
+                    if (error) throw error;
+                    await loadData();
+                    showAlert('Produto excluído com sucesso!');
+                } catch (error) {
+                    console.error('Erro ao excluir produto:', error);
+                    showAlert('Erro ao excluir produto!', 'error');
+                }
+            })) return;
         }
 
         // Excluir categoria
         async function deleteCategory(code) {
-            if (!confirm('Tem certeza que deseja excluir esta categoria?')) return;
+            if (!showConfirmDialog('Tem certeza que deseja excluir esta categoria?', async () => {
+                try {
+                    const { error } = await supabase
+                        .from('categories')
+                        .delete()
+                        .eq('code', code);
 
-            try {
-                const { error } = await supabase
-                    .from('categories')
-                    .delete()
-                    .eq('code', code);
+                    if (error) throw error;
+                    await loadData();
+                    showAlert('Categoria excluída com sucesso!');
+                } catch (error) {
+                    console.error('Erro ao excluir categoria:', error);
+                    showAlert('Erro ao excluir categoria!', 'error');
+                }
+            })) return;
+        }
 
-                if (error) throw error;
-                await loadData();
-                showAlert('Categoria excluída com sucesso!');
-            } catch (error) {
-                console.error('Erro ao excluir categoria:', error);
-                showAlert('Erro ao excluir categoria!', 'error');
-            }
+        // Modal de confirmação customizado
+        function showConfirmDialog(message, onConfirm) {
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+            modal.innerHTML = `
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg max-w-sm w-full mx-4">
+                    <p class="text-gray-700 dark:text-gray-300 mb-4">${message}</p>
+                    <div class="flex justify-end space-x-3">
+                        <button class="cancel-btn px-4 py-2 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded">Cancelar</button>
+                        <button class="confirm-btn px-4 py-2 bg-red-500 text-white hover:bg-red-600 rounded">Confirmar</button>
+                    </div>
+                </div>
+            `;
+            
+            modal.querySelector('.cancel-btn').onclick = () => modal.remove();
+            modal.querySelector('.confirm-btn').onclick = () => {
+                modal.remove();
+                onConfirm();
+            };
+            
+            document.body.appendChild(modal);
+            return true;
+        }
+
+        // Mostrar erro no formulário
+        function showFormError(formType, message) {
+            const errorDiv = document.getElementById(`${formType}-form-error`);
+            errorDiv.textContent = message;
+            errorDiv.classList.remove('hidden');
+            
+            // Esconder após 5 segundos
+            setTimeout(() => {
+                errorDiv.classList.add('hidden');
+            }, 5000);
+        }
+
+        // Esconder erro no formulário
+        function hideFormError(formType) {
+            const errorDiv = document.getElementById(`${formType}-form-error`);
+            errorDiv.classList.add('hidden');
         }
 
         // Carregar categorias na homepage
@@ -1395,6 +1527,7 @@
             
             document.getElementById('product-form-title').textContent = 'Editar Produto';
             document.getElementById('product-form-container').classList.remove('hidden');
+            hideFormError('product');
         }
 
         // Editar categoria
@@ -1410,11 +1543,14 @@
             
             document.getElementById('category-form-title').textContent = 'Editar Categoria';
             document.getElementById('category-form-container').classList.remove('hidden');
+            hideFormError('category');
         }
 
         // Atualizar filtros de categoria
         function updateCategoryFilters() {
             const categoryFilter = document.getElementById('category-filter');
+            const productCategorySelect = document.getElementById('product-category');
+            
             if (!categoryFilter) return;
 
             // Salvar seleção atual
@@ -1425,12 +1561,28 @@
                 categoryFilter.remove(1);
             }
             
+            // Limpar select de categorias de produto
+            if (productCategorySelect) {
+                while (productCategorySelect.options.length > 1) {
+                    productCategorySelect.remove(1);
+                }
+            }
+            
             // Adicionar categorias
             Object.keys(categoryData).forEach(code => {
+                // Filtro de produtos
                 const option = document.createElement('option');
                 option.value = code;
                 option.textContent = categoryData[code].name;
                 categoryFilter.appendChild(option);
+                
+                // Select de categoria do formulário
+                if (productCategorySelect) {
+                    const productOption = document.createElement('option');
+                    productOption.value = code;
+                    productOption.textContent = categoryData[code].name;
+                    productCategorySelect.appendChild(productOption);
+                }
             });
             
             // Restaurar seleção
@@ -1747,65 +1899,81 @@
             document.getElementById('add-product-btn').addEventListener('click', () => {
                 currentEditingId = null;
                 document.getElementById('product-form').reset();
+                document.getElementById('product-images-preview').innerHTML = '';
                 document.getElementById('product-form-title').textContent = 'Adicionar Novo Produto';
                 document.getElementById('product-form-container').classList.remove('hidden');
+                hideFormError('product');
             });
 
             document.getElementById('cancel-product-btn').addEventListener('click', () => {
                 document.getElementById('product-form-container').classList.add('hidden');
+                hideFormError('product');
             });
 
             document.getElementById('product-form').addEventListener('submit', async (e) => {
                 e.preventDefault();
+                hideFormError('product');
                 
                 const formData = new FormData(e.target);
                 const productData = {
-                    name: formData.get('product-name'),
-                    category: formData.get('product-category'),
-                    price: parseFloat(formData.get('product-price')),
-                    old_price: formData.get('product-old-price') ? parseFloat(formData.get('product-old-price')) : null,
-                    description: formData.get('product-description'),
+                    name: formData.get('product-name') || document.getElementById('product-name').value,
+                    category: formData.get('product-category') || document.getElementById('product-category').value,
+                    price: parseFloat(document.getElementById('product-price').value),
+                    old_price: document.getElementById('product-old-price').value ? parseFloat(document.getElementById('product-old-price').value) : null,
+                    description: formData.get('product-description') || document.getElementById('product-description').value,
                     images: []
                 };
 
                 // Upload de imagens
                 const imageFiles = document.getElementById('product-images-input').files;
-                for (let file of imageFiles) {
+                if (imageFiles.length > 0) {
                     try {
-                        const imageUrl = await uploadImage(file, 'products');
-                        productData.images.push(imageUrl);
+                        for (let file of imageFiles) {
+                            const imageUrl = await uploadImage(file, 'products');
+                            productData.images.push(imageUrl);
+                        }
                     } catch (error) {
                         console.error('Erro no upload:', error);
+                        showFormError('product', 'Erro ao fazer upload das imagens');
+                        return;
                     }
+                } else if (!currentEditingId) {
+                    showFormError('product', 'Pelo menos uma imagem é obrigatória');
+                    return;
                 }
 
-                if (await saveProduct(productData)) {
+                const result = await saveProduct(productData);
+                if (result.success) {
                     document.getElementById('product-form-container').classList.add('hidden');
                     showAlert('Produto salvo com sucesso!');
                 } else {
-                    showAlert('Erro ao salvar produto!', 'error');
+                    showFormError('product', result.error);
                 }
             });
 
             document.getElementById('add-category-btn').addEventListener('click', () => {
                 currentEditingId = null;
                 document.getElementById('category-form').reset();
+                document.getElementById('category-image-preview').innerHTML = '';
                 document.getElementById('category-form-title').textContent = 'Adicionar Nova Categoria';
                 document.getElementById('category-form-container').classList.remove('hidden');
+                hideFormError('category');
             });
 
             document.getElementById('cancel-category-btn').addEventListener('click', () => {
                 document.getElementById('category-form-container').classList.add('hidden');
+                hideFormError('category');
             });
 
             document.getElementById('category-form').addEventListener('submit', async (e) => {
                 e.preventDefault();
+                hideFormError('category');
                 
                 const formData = new FormData(e.target);
                 const categoryData = {
-                    code: formData.get('category-code'),
-                    name: formData.get('category-name'),
-                    description: formData.get('category-description'),
+                    code: document.getElementById('category-code').value,
+                    name: document.getElementById('category-name').value,
+                    description: document.getElementById('category-description').value,
                     image_url: null
                 };
 
@@ -1816,14 +1984,17 @@
                         categoryData.image_url = await uploadImage(imageFile, 'categories');
                     } catch (error) {
                         console.error('Erro no upload:', error);
+                        showFormError('category', 'Erro ao fazer upload da imagem');
+                        return;
                     }
                 }
 
-                if (await saveCategory(categoryData)) {
+                const result = await saveCategory(categoryData);
+                if (result.success) {
                     document.getElementById('category-form-container').classList.add('hidden');
                     showAlert('Categoria salva com sucesso!');
                 } else {
-                    showAlert('Erro ao salvar categoria!', 'error');
+                    showFormError('category', result.error);
                 }
             });
 
