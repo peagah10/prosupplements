@@ -14,7 +14,7 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#FF6B00',
+                        primary: '#5D5CDE',
                         secondary: '#1A1A1A',
                         light: '#f5f5f5',
                         dark: '#181818'
@@ -51,7 +51,7 @@
 
         body {
             overflow-x: hidden;
-            background-color: #FFE5CC;
+            background-color: #FFFFFF;
         }
         
         .dark body {
@@ -208,7 +208,7 @@
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            border-left-color: #FF6B00;
+            border-left-color: #5D5CDE;
             animation: spin 1s linear infinite;
         }
 
@@ -219,7 +219,7 @@
 
         .dark .spinner {
             border: 4px solid rgba(255, 255, 255, 0.1);
-            border-left-color: #FF6B00;
+            border-left-color: #5D5CDE;
         }
 
         @media (max-width: 640px) {
@@ -264,6 +264,7 @@
             list-style: none;
             margin: 0;
             padding: 0;
+            flex-wrap: wrap;
         }
 
         .admin-nav-item {
@@ -271,14 +272,16 @@
             cursor: pointer;
             transition: all 0.2s;
             font-weight: 500;
+            min-width: 120px;
+            text-align: center;
         }
 
         .admin-nav-item:hover {
-            background-color: rgba(255, 107, 0, 0.1);
+            background-color: rgba(93, 92, 222, 0.1);
         }
 
         .admin-nav-item.active {
-            background-color: #FF6B00;
+            background-color: #5D5CDE;
             color: white;
         }
 
@@ -332,9 +335,9 @@
         .admin-form-input:focus, 
         .admin-form-select:focus, 
         .admin-form-textarea:focus {
-            border-color: #FF6B00;
+            border-color: #5D5CDE;
             outline: none;
-            box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.15);
+            box-shadow: 0 0 0 3px rgba(93, 92, 222, 0.15);
         }
 
         .admin-form-textarea {
@@ -344,7 +347,7 @@
 
         .admin-form-button {
             padding: 12px 25px;
-            background-color: #FF6B00;
+            background-color: #5D5CDE;
             color: white;
             border: none;
             border-radius: 5px;
@@ -355,7 +358,7 @@
         }
 
         .admin-form-button:hover {
-            background-color: #E05900;
+            background-color: #4E4DBF;
         }
 
         .admin-form-button.secondary {
@@ -376,13 +379,13 @@
         }
 
         .image-upload-container:hover {
-            border-color: #FF6B00;
-            background-color: rgba(255, 107, 0, 0.05);
+            border-color: #5D5CDE;
+            background-color: rgba(93, 92, 222, 0.05);
         }
 
         .image-upload-container.drag-over {
-            border-color: #FF6B00;
-            background-color: rgba(255, 107, 0, 0.1);
+            border-color: #5D5CDE;
+            background-color: rgba(93, 92, 222, 0.1);
         }
 
         .image-preview {
@@ -405,6 +408,136 @@
             background-color: #7F1D1D;
             border-color: #991B1B;
             color: #FCA5A5;
+        }
+
+        .dashboard-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            padding: 25px;
+            color: white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .stats-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .stats-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .dark .stats-card {
+            background-color: #2a2a2a;
+        }
+
+        .payment-method-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .payment-pix {
+            background-color: #32D74B;
+            color: white;
+        }
+
+        .payment-credit {
+            background-color: #007AFF;
+            color: white;
+        }
+
+        .payment-debit {
+            background-color: #FF9500;
+            color: white;
+        }
+
+        .payment-cash {
+            background-color: #34C759;
+            color: white;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-pending {
+            background-color: #FF9500;
+            color: white;
+        }
+
+        .status-delivered {
+            background-color: #34C759;
+            color: white;
+        }
+
+        .status-cancelled {
+            background-color: #FF3B30;
+            color: white;
+        }
+
+        .modal-backdrop {
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+        }
+
+        .product-detail-modal {
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .benefit-tag {
+            background-color: rgba(93, 92, 222, 0.1);
+            color: #5D5CDE;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+            margin: 2px;
+            display: inline-block;
+        }
+
+        .flavor-option {
+            padding: 8px 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .flavor-option:hover {
+            border-color: #5D5CDE;
+        }
+
+        .flavor-option.selected {
+            border-color: #5D5CDE;
+            background-color: rgba(93, 92, 222, 0.1);
+            color: #5D5CDE;
+        }
+
+        @media (max-width: 768px) {
+            .admin-nav-tabs {
+                flex-direction: column;
+            }
+            
+            .admin-nav-item {
+                min-width: 100%;
+            }
+            
+            .admin-form-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -505,7 +638,6 @@
             <div class="container mx-auto px-4 py-16">
                 <h2 class="text-3xl font-bold text-center mb-12">Categorias</h2>
                 <div id="categories-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                    <!-- Categorias serão carregadas via JavaScript -->
                     <div class="flex justify-center items-center py-12">
                         <div class="spinner"></div>
                     </div>
@@ -636,13 +768,91 @@
                     <!-- Barra de navegação administrativa -->
                     <div class="admin-nav mb-8">
                         <ul class="admin-nav-tabs">
-                            <li class="admin-nav-item active" data-tab="products">Produtos</li>
+                            <li class="admin-nav-item active" data-tab="dashboard">Dashboard</li>
+                            <li class="admin-nav-item" data-tab="products">Produtos</li>
                             <li class="admin-nav-item" data-tab="categories">Categorias</li>
+                            <li class="admin-nav-item" data-tab="orders">Pedidos</li>
+                            <li class="admin-nav-item" data-tab="settings">Configurações</li>
                         </ul>
                     </div>
                     
+                    <!-- Tab de Dashboard -->
+                    <div id="admin-tab-dashboard" class="admin-tab">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                            <div class="stats-card">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-gray-500 dark:text-gray-400 text-sm">Vendas Hoje</p>
+                                        <p class="text-2xl font-bold text-primary" id="sales-today">R$ 0,00</p>
+                                    </div>
+                                    <div class="text-3xl text-primary">
+                                        <i class="fas fa-chart-line"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="stats-card">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-gray-500 dark:text-gray-400 text-sm">Vendas Mês</p>
+                                        <p class="text-2xl font-bold text-green-600" id="sales-month">R$ 0,00</p>
+                                    </div>
+                                    <div class="text-3xl text-green-600">
+                                        <i class="fas fa-calendar-alt"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="stats-card">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-gray-500 dark:text-gray-400 text-sm">Pedidos Pendentes</p>
+                                        <p class="text-2xl font-bold text-orange-600" id="pending-orders">0</p>
+                                    </div>
+                                    <div class="text-3xl text-orange-600">
+                                        <i class="fas fa-clock"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="stats-card">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-gray-500 dark:text-gray-400 text-sm">Total Produtos</p>
+                                        <p class="text-2xl font-bold text-blue-600" id="total-products">0</p>
+                                    </div>
+                                    <div class="text-3xl text-blue-600">
+                                        <i class="fas fa-box"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                            <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+                                <h3 class="text-xl font-bold mb-4">Últimos Pedidos</h3>
+                                <div id="recent-orders">
+                                    <div class="text-center py-8 text-gray-500">
+                                        <i class="fas fa-shopping-bag text-3xl mb-2"></i>
+                                        <p>Nenhum pedido encontrado</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+                                <h3 class="text-xl font-bold mb-4">Produtos Mais Vendidos</h3>
+                                <div id="top-products">
+                                    <div class="text-center py-8 text-gray-500">
+                                        <i class="fas fa-chart-bar text-3xl mb-2"></i>
+                                        <p>Sem dados de vendas</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <!-- Tab de Produtos -->
-                    <div id="admin-tab-products" class="admin-tab">
+                    <div id="admin-tab-products" class="admin-tab hidden">
                         <div class="flex justify-between items-center mb-6">
                             <h3 class="text-xl font-bold">Gerenciar Produtos</h3>
                             <button id="add-product-btn" class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition">
@@ -677,6 +887,37 @@
                                     <input type="number" id="product-old-price" class="admin-form-input" step="0.01" min="0">
                                 </div>
                                 
+                                <div class="admin-form-group">
+                                    <label for="product-weight">Peso/Gramas*</label>
+                                    <input type="text" id="product-weight" class="admin-form-input" placeholder="ex: 1kg, 500g, 2.5kg" required>
+                                </div>
+                                
+                                <div class="admin-form-group">
+                                    <label for="product-brand">Marca</label>
+                                    <input type="text" id="product-brand" class="admin-form-input" placeholder="ex: Optimum Nutrition">
+                                </div>
+                                
+                                <div class="admin-form-group col-span-2">
+                                    <label for="product-flavors">Sabores Disponíveis*</label>
+                                    <input type="text" id="product-flavors" class="admin-form-input" placeholder="Separados por vírgula: Chocolate, Baunilha, Morango" required>
+                                    <small class="text-gray-500">Separe os sabores por vírgula</small>
+                                </div>
+                                
+                                <div class="admin-form-group col-span-2">
+                                    <label for="product-benefits">Benefícios/Para que serve*</label>
+                                    <textarea id="product-benefits" class="admin-form-textarea" placeholder="ex: Ganho de massa muscular, Recuperação pós-treino, Aumento da força..." required></textarea>
+                                </div>
+                                
+                                <div class="admin-form-group col-span-2">
+                                    <label for="product-ingredients">Ingredientes Principais</label>
+                                    <input type="text" id="product-ingredients" class="admin-form-input" placeholder="Separados por vírgula: Whey Protein, BCAA, Creatina">
+                                </div>
+                                
+                                <div class="admin-form-group col-span-2">
+                                    <label for="product-usage">Modo de Uso</label>
+                                    <textarea id="product-usage" class="admin-form-textarea" placeholder="Como usar o produto, dosagem recomendada..."></textarea>
+                                </div>
+                                
                                 <div class="admin-form-group col-span-2">
                                     <label for="product-images">Imagens do Produto*</label>
                                     <div class="image-upload-container" id="product-image-upload">
@@ -689,7 +930,7 @@
                                 </div>
                                 
                                 <div class="admin-form-group col-span-2">
-                                    <label for="product-description">Descrição*</label>
+                                    <label for="product-description">Descrição Completa*</label>
                                     <textarea id="product-description" class="admin-form-textarea" required></textarea>
                                 </div>
                                 
@@ -765,52 +1006,135 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <!-- Tab de Pedidos -->
+                    <div id="admin-tab-orders" class="admin-tab hidden">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-xl font-bold">Gerenciar Pedidos</h3>
+                            <div class="flex gap-4">
+                                <select id="order-status-filter" class="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary text-base">
+                                    <option value="all">Todos os Status</option>
+                                    <option value="pending">Pendente</option>
+                                    <option value="delivered">Entregue</option>
+                                    <option value="cancelled">Cancelado</option>
+                                </select>
+                                <select id="order-payment-filter" class="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary text-base">
+                                    <option value="all">Todos os Pagamentos</option>
+                                    <option value="pix">PIX</option>
+                                    <option value="credit">Cartão Crédito</option>
+                                    <option value="debit">Cartão Débito</option>
+                                    <option value="cash">Dinheiro</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div id="orders-list" class="space-y-4">
+                            <div class="flex justify-center items-center py-12">
+                                <div class="spinner"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tab de Configurações -->
+                    <div id="admin-tab-settings" class="admin-tab hidden">
+                        <h3 class="text-xl font-bold mb-6">Configurações da Loja</h3>
+                        
+                        <div class="admin-form-container">
+                            <h4 class="text-lg font-bold mb-4">Configurações de Frete</h4>
+                            <div id="settings-form-error" class="error-message hidden"></div>
+                            <form id="settings-form" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="admin-form-group">
+                                    <label for="shipping-price">Valor do Frete (R$)*</label>
+                                    <input type="number" id="shipping-price" class="admin-form-input" step="0.01" min="0" required>
+                                </div>
+                                
+                                <div class="admin-form-group">
+                                    <label for="free-shipping-limit">Frete Grátis a partir de (R$)</label>
+                                    <input type="number" id="free-shipping-limit" class="admin-form-input" step="0.01" min="0">
+                                    <small class="text-gray-500">Deixe 0 para desabilitar frete grátis</small>
+                                </div>
+                                
+                                <div class="col-span-2 flex justify-end">
+                                    <button type="submit" id="save-settings-btn" class="admin-form-button">Salvar Configurações</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Modal de Produto -->
-    <div id="product-modal" class="fixed inset-0 z-50 hidden">
-        <div class="absolute inset-0 bg-black bg-opacity-50" id="modal-overlay"></div>
-        <div class="relative z-10 w-11/12 max-w-3xl mx-auto mt-10 sm:mt-20 bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
-            <button class="absolute top-2 right-2 z-10 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 text-2xl" id="close-modal">
-                <i class="fas fa-times"></i>
-            </button>
+    <!-- Modal de Produto Melhorado -->
+    <div id="product-modal" class="fixed inset-0 z-50 hidden modal-backdrop">
+        <div class="flex items-center justify-center min-h-screen px-4">
+            <div class="relative w-full max-w-4xl bg-white dark:bg-gray-800 rounded-lg shadow-xl product-detail-modal">
+                <button class="absolute top-4 right-4 z-10 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 text-2xl" id="close-modal">
+                    <i class="fas fa-times"></i>
+                </button>
 
-            <div class="grid grid-cols-1 md:grid-cols-2">
-                <div class="p-3 sm:p-4 flex flex-col items-center justify-center bg-gray-100 dark:bg-gray-700">
-                    <img src="" alt="" class="max-w-full max-h-full object-contain" id="modal-product-image">
-                </div>
-
-                <div class="p-3 sm:p-4">
-                    <h3 id="modal-product-name" class="text-xl sm:text-2xl font-bold mb-2"></h3>
-                    <p id="modal-product-description" class="text-sm text-gray-600 dark:text-gray-300 mb-4"></p>
-
-                    <div class="flex items-center justify-between mb-4">
-                        <div>
-                            <span class="text-gray-500 dark:text-gray-400 text-xs line-through" id="modal-product-old-price"></span>
-                            <div class="text-xl sm:text-2xl font-bold text-primary" id="modal-product-price"></div>
-                        </div>
-
-                        <div class="flex items-center">
-                            <button class="w-7 h-7 flex items-center justify-center border border-gray-300 dark:border-gray-600 rounded-l-lg" id="decrease-quantity">
-                                <i class="fas fa-minus text-xs"></i>
-                            </button>
-                            <input type="number" id="product-quantity" class="w-10 h-7 border-t border-b border-gray-300 dark:border-gray-600 text-center text-sm" value="1" min="1" />
-                            <button class="w-7 h-7 flex items-center justify-center border border-gray-300 dark:border-gray-600 rounded-r-lg" id="increase-quantity">
-                                <i class="fas fa-plus text-xs"></i>
-                            </button>
-                        </div>
+                <div class="grid grid-cols-1 md:grid-cols-2">
+                    <div class="p-6 bg-gray-50 dark:bg-gray-700">
+                        <img src="" alt="" class="w-full h-80 object-contain rounded-lg" id="modal-product-image">
                     </div>
 
-                    <div class="grid grid-cols-2 gap-2">
-                        <button id="modal-add-to-cart" class="bg-primary text-white font-semibold py-2 px-3 rounded-lg hover:bg-opacity-90 transition flex items-center justify-center text-sm">
-                            <i class="fas fa-shopping-cart mr-1"></i> Adicionar
-                        </button>
-                        <button id="modal-buy-now" class="bg-green-600 text-white font-semibold py-2 px-3 rounded-lg hover:bg-opacity-90 transition text-sm">
-                            Comprar Agora
-                        </button>
+                    <div class="p-6">
+                        <div class="mb-4">
+                            <h3 id="modal-product-name" class="text-2xl font-bold mb-2"></h3>
+                            <p class="text-sm text-gray-500" id="modal-product-brand"></p>
+                            <p class="text-sm text-gray-500" id="modal-product-weight"></p>
+                        </div>
+
+                        <div class="mb-4">
+                            <h4 class="font-bold mb-2">Para que serve:</h4>
+                            <div id="modal-product-benefits" class="flex flex-wrap gap-1"></div>
+                        </div>
+
+                        <div class="mb-4" id="modal-product-flavors-container">
+                            <h4 class="font-bold mb-2">Sabores disponíveis:</h4>
+                            <div id="modal-product-flavors" class="grid grid-cols-2 gap-2"></div>
+                        </div>
+
+                        <div class="mb-4" id="modal-product-ingredients-container">
+                            <h4 class="font-bold mb-2">Ingredientes principais:</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-300" id="modal-product-ingredients"></p>
+                        </div>
+
+                        <div class="mb-4" id="modal-product-usage-container">
+                            <h4 class="font-bold mb-2">Modo de uso:</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-300" id="modal-product-usage"></p>
+                        </div>
+
+                        <div class="mb-4">
+                            <h4 class="font-bold mb-2">Descrição:</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-300" id="modal-product-description"></p>
+                        </div>
+
+                        <div class="flex items-center justify-between mb-6">
+                            <div>
+                                <span class="text-gray-500 dark:text-gray-400 text-sm line-through" id="modal-product-old-price"></span>
+                                <div class="text-2xl font-bold text-primary" id="modal-product-price"></div>
+                            </div>
+
+                            <div class="flex items-center">
+                                <button class="w-8 h-8 flex items-center justify-center border border-gray-300 dark:border-gray-600 rounded-l-lg" id="decrease-quantity">
+                                    <i class="fas fa-minus text-sm"></i>
+                                </button>
+                                <input type="number" id="product-quantity" class="w-12 h-8 border-t border-b border-gray-300 dark:border-gray-600 text-center text-sm" value="1" min="1" />
+                                <button class="w-8 h-8 flex items-center justify-center border border-gray-300 dark:border-gray-600 rounded-r-lg" id="increase-quantity">
+                                    <i class="fas fa-plus text-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3">
+                            <button id="modal-add-to-cart" class="bg-primary text-white font-semibold py-3 px-4 rounded-lg hover:bg-opacity-90 transition flex items-center justify-center">
+                                <i class="fas fa-shopping-cart mr-2"></i> Adicionar
+                            </button>
+                            <button id="modal-buy-now" class="bg-green-600 text-white font-semibold py-3 px-4 rounded-lg hover:bg-opacity-90 transition">
+                                Comprar Agora
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -850,6 +1174,17 @@
                     <span id="cart-total" class="font-bold">R$ 10,00</span>
                 </div>
 
+                <div class="mb-4">
+                    <label class="block font-medium mb-2">Forma de Pagamento:</label>
+                    <select id="payment-method" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-primary text-base">
+                        <option value="">Selecione...</option>
+                        <option value="pix">PIX</option>
+                        <option value="credit">Cartão de Crédito</option>
+                        <option value="debit">Cartão de Débito</option>
+                        <option value="cash">Dinheiro</option>
+                    </select>
+                </div>
+
                 <button id="proceed-checkout" class="w-full bg-primary text-white font-semibold py-3 rounded-lg hover:bg-opacity-90 transition mb-3 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
                     Finalizar Compra
                 </button>
@@ -857,6 +1192,22 @@
                 <button id="continue-shopping" class="w-full bg-transparent border border-primary text-primary font-semibold py-3 rounded-lg hover:bg-primary hover:bg-opacity-10 transition">
                     Continuar Comprando
                 </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Pedido -->
+    <div id="order-details-modal" class="fixed inset-0 z-50 hidden modal-backdrop">
+        <div class="flex items-center justify-center min-h-screen px-4">
+            <div class="relative w-full max-w-2xl bg-white dark:bg-gray-800 rounded-lg shadow-xl">
+                <button class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 text-2xl" id="close-order-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+                
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-4">Detalhes do Pedido</h3>
+                    <div id="order-details-content"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -893,14 +1244,18 @@
         let carouselPosition = 0;
         let carouselInterval;
         let isLoggedIn = false;
-        let currentAdminTab = 'products';
+        let currentAdminTab = 'dashboard';
         let currentEditingId = null;
+        let ordersDB = [];
+        let salesData = { daily: 0, monthly: 0, total: 0 };
+        let shippingConfig = { price: 10.00, freeShippingLimit: 150.00 };
+        let selectedFlavor = '';
 
         // Inicializar Supabase
         function initSupabase() {
             try {
-                const supabaseUrl = 'https://ngishqxtnkgvognszyep.supabase.co';
-                const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5naXNocXh0bmtndm9nbnN6eWVwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI1OTMwNjcsImV4cCI6MjA2ODE2OTA2N30.FOksPjvS2NyO6dcZ_j0Grj3Prn9OP_udSGQwswtFBXE';
+                const supabaseUrl = 'YOUR_SUPABASE_URL';
+                const supabaseKey = 'YOUR_SUPABASE_ANON_KEY';
                 
                 supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
                 console.log('Supabase inicializado!');
@@ -922,13 +1277,13 @@
             const filePath = `${folder}/${fileName}`;
 
             const { data, error } = await supabase.storage
-                .from('images')
+                .from('ps_images')
                 .upload(filePath, file);
 
             if (error) throw error;
 
             const { data: urlData } = supabase.storage
-                .from('images')
+                .from('ps_images')
                 .getPublicUrl(filePath);
 
             return urlData.publicUrl;
@@ -941,7 +1296,7 @@
             try {
                 // Carregar categorias
                 const { data: categories } = await supabase
-                    .from('categories')
+                    .from('ps_categories')
                     .select('*');
 
                 if (categories) {
@@ -955,7 +1310,7 @@
 
                 // Carregar produtos
                 const { data: products } = await supabase
-                    .from('products')
+                    .from('ps_products')
                     .select('*');
 
                 if (products) {
@@ -963,6 +1318,33 @@
                     if (currentPage === 'products') loadProducts();
                     if (currentAdminTab === 'products') loadAdminProducts();
                 }
+
+                // Carregar pedidos
+                const { data: orders } = await supabase
+                    .from('ps_orders')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (orders) {
+                    ordersDB = orders;
+                    if (currentAdminTab === 'orders') loadOrders();
+                    if (currentAdminTab === 'dashboard') updateDashboard();
+                }
+
+                // Carregar configurações
+                const { data: settings } = await supabase
+                    .from('ps_settings')
+                    .select('*')
+                    .single();
+
+                if (settings) {
+                    shippingConfig = {
+                        price: settings.shipping_price || 10.00,
+                        freeShippingLimit: settings.free_shipping_limit || 150.00
+                    };
+                    updateShippingDisplay();
+                }
+
             } catch (error) {
                 console.error('Erro ao carregar dados:', error);
             }
@@ -984,14 +1366,14 @@
 
                 if (currentEditingId) {
                     const { data, error } = await supabase
-                        .from('products')
+                        .from('ps_products')
                         .update(productData)
-                        .eq('id', currentEditingId)
+                        .eq('ps_product_id', currentEditingId)
                         .select();
                     if (error) throw error;
                 } else {
                     const { data, error } = await supabase
-                        .from('products')
+                        .from('ps_products')
                         .insert([productData])
                         .select();
                     if (error) throw error;
@@ -1034,39 +1416,15 @@
                 }
 
                 if (currentEditingId) {
-                    // Para edição, verificar se o novo código já existe (se mudou)
-                    if (currentEditingId !== categoryData.code) {
-                        const { data: existing } = await supabase
-                            .from('categories')
-                            .select('code')
-                            .eq('code', categoryData.code)
-                            .single();
-
-                        if (existing) {
-                            return { success: false, error: `Categoria com código "${categoryData.code}" já existe` };
-                        }
-                    }
-
                     const { data, error } = await supabase
-                        .from('categories')
+                        .from('ps_categories')
                         .update(categoryData)
-                        .eq('code', currentEditingId)
+                        .eq('ps_category_id', currentEditingId)
                         .select();
                     if (error) throw error;
                 } else {
-                    // Verificar se o código já existe
-                    const { data: existing } = await supabase
-                        .from('categories')
-                        .select('code')
-                        .eq('code', categoryData.code)
-                        .single();
-
-                    if (existing) {
-                        return { success: false, error: `Categoria com código "${categoryData.code}" já existe` };
-                    }
-
                     const { data, error } = await supabase
-                        .from('categories')
+                        .from('ps_categories')
                         .insert([categoryData])
                         .select();
                     if (error) throw error;
@@ -1092,14 +1450,78 @@
             }
         }
 
+        // Salvar pedido
+        async function saveOrder(orderData) {
+            if (!supabase) return { success: false, error: 'Supabase não inicializado' };
+
+            try {
+                const { data, error } = await supabase
+                    .from('ps_orders')
+                    .insert([orderData])
+                    .select();
+
+                if (error) throw error;
+                await loadData();
+                return { success: true, data: data[0] };
+            } catch (error) {
+                console.error('Erro ao salvar pedido:', error);
+                return { success: false, error: error.message };
+            }
+        }
+
+        // Atualizar status do pedido
+        async function updateOrderStatus(orderId, status) {
+            if (!supabase) return { success: false, error: 'Supabase não inicializado' };
+
+            try {
+                const { data, error } = await supabase
+                    .from('ps_orders')
+                    .update({ status })
+                    .eq('ps_order_id', orderId)
+                    .select();
+
+                if (error) throw error;
+                await loadData();
+                return { success: true };
+            } catch (error) {
+                console.error('Erro ao atualizar status do pedido:', error);
+                return { success: false, error: error.message };
+            }
+        }
+
+        // Salvar configurações
+        async function saveSettings(settingsData) {
+            if (!supabase) return { success: false, error: 'Supabase não inicializado' };
+
+            try {
+                const { data, error } = await supabase
+                    .from('ps_settings')
+                    .upsert([{ ps_settings_id: 1, ...settingsData }])
+                    .select();
+
+                if (error) throw error;
+                
+                shippingConfig = {
+                    price: settingsData.shipping_price,
+                    freeShippingLimit: settingsData.free_shipping_limit
+                };
+                
+                updateShippingDisplay();
+                return { success: true };
+            } catch (error) {
+                console.error('Erro ao salvar configurações:', error);
+                return { success: false, error: error.message };
+            }
+        }
+
         // Excluir produto
         async function deleteProduct(id) {
-            if (!showConfirmDialog('Tem certeza que deseja excluir este produto?', async () => {
+            showConfirmDialog('Tem certeza que deseja excluir este produto?', async () => {
                 try {
                     const { error } = await supabase
-                        .from('products')
+                        .from('ps_products')
                         .delete()
-                        .eq('id', id);
+                        .eq('ps_product_id', id);
 
                     if (error) throw error;
                     await loadData();
@@ -1108,17 +1530,17 @@
                     console.error('Erro ao excluir produto:', error);
                     showAlert('Erro ao excluir produto!', 'error');
                 }
-            })) return;
+            });
         }
 
         // Excluir categoria
-        async function deleteCategory(code) {
-            if (!showConfirmDialog('Tem certeza que deseja excluir esta categoria?', async () => {
+        async function deleteCategory(id) {
+            showConfirmDialog('Tem certeza que deseja excluir esta categoria?', async () => {
                 try {
                     const { error } = await supabase
-                        .from('categories')
+                        .from('ps_categories')
                         .delete()
-                        .eq('code', code);
+                        .eq('ps_category_id', id);
 
                     if (error) throw error;
                     await loadData();
@@ -1127,7 +1549,7 @@
                     console.error('Erro ao excluir categoria:', error);
                     showAlert('Erro ao excluir categoria!', 'error');
                 }
-            })) return;
+            });
         }
 
         // Modal de confirmação customizado
@@ -1249,11 +1671,11 @@
                             <h3 class="product-name text-lg font-semibold mb-2">${product.name}</h3>
                             <div class="flex items-center justify-between mb-3">
                                 <div class="text-xl font-bold text-primary">${formatCurrency(product.price)}</div>
-                                <button class="add-to-cart-btn bg-primary text-white py-2 px-3 rounded-lg hover:bg-opacity-90 transition" data-product-id="${product.id}">
+                                <button class="add-to-cart-btn bg-primary text-white py-2 px-3 rounded-lg hover:bg-opacity-90 transition" data-product-id="${product.ps_product_id}">
                                     <i class="fas fa-shopping-cart mr-1"></i> Adicionar
                                 </button>
                             </div>
-                            <button class="view-details-btn w-full text-center text-sm text-primary hover:underline" data-product-id="${product.id}">Ver detalhes</button>
+                            <button class="view-details-btn w-full text-center text-sm text-primary hover:underline" data-product-id="${product.ps_product_id}">Ver detalhes</button>
                         </div>
                     </div>
                 `;
@@ -1281,8 +1703,8 @@
                         <h3 class="font-bold mb-2">${product.name}</h3>
                         <p class="text-primary font-bold mb-3">${formatCurrency(product.price)}</p>
                         <div class="flex gap-2">
-                            <button class="edit-product-btn flex-1 bg-blue-500 text-white px-3 py-1 rounded text-sm" data-id="${product.id}">Editar</button>
-                            <button class="delete-product-btn flex-1 bg-red-500 text-white px-3 py-1 rounded text-sm" data-id="${product.id}">Excluir</button>
+                            <button class="edit-product-btn flex-1 bg-blue-500 text-white px-3 py-1 rounded text-sm" data-id="${product.ps_product_id}">Editar</button>
+                            <button class="delete-product-btn flex-1 bg-red-500 text-white px-3 py-1 rounded text-sm" data-id="${product.ps_product_id}">Excluir</button>
                         </div>
                     </div>
                 `;
@@ -1316,8 +1738,8 @@
                         </div>
                         <p class="text-sm mb-3">${category.description}</p>
                         <div class="flex gap-2">
-                            <button class="edit-category-btn flex-1 bg-blue-500 text-white px-3 py-1 rounded text-sm" data-code="${code}">Editar</button>
-                            <button class="delete-category-btn flex-1 bg-red-500 text-white px-3 py-1 rounded text-sm" data-code="${code}">Excluir</button>
+                            <button class="edit-category-btn flex-1 bg-blue-500 text-white px-3 py-1 rounded text-sm" data-id="${category.ps_category_id}">Editar</button>
+                            <button class="delete-category-btn flex-1 bg-red-500 text-white px-3 py-1 rounded text-sm" data-id="${category.ps_category_id}">Excluir</button>
                         </div>
                     </div>
                 `;
@@ -1327,6 +1749,143 @@
 
             // Adicionar eventos
             setupAdminCategoryEvents();
+        }
+
+        // Carregar pedidos
+        function loadOrders() {
+            const container = document.getElementById('orders-list');
+            if (!container) return;
+
+            const statusFilter = document.getElementById('order-status-filter').value;
+            const paymentFilter = document.getElementById('order-payment-filter').value;
+
+            let filteredOrders = ordersDB;
+            
+            if (statusFilter !== 'all') {
+                filteredOrders = filteredOrders.filter(o => o.status === statusFilter);
+            }
+            
+            if (paymentFilter !== 'all') {
+                filteredOrders = filteredOrders.filter(o => o.payment_method === paymentFilter);
+            }
+
+            let html = '';
+            filteredOrders.forEach(order => {
+                const orderDate = new Date(order.created_at).toLocaleDateString('pt-BR');
+                const statusClass = {
+                    'pending': 'status-pending',
+                    'delivered': 'status-delivered',
+                    'cancelled': 'status-cancelled'
+                }[order.status] || 'status-pending';
+                
+                const paymentClass = {
+                    'pix': 'payment-pix',
+                    'credit': 'payment-credit',
+                    'debit': 'payment-debit',
+                    'cash': 'payment-cash'
+                }[order.payment_method] || 'payment-pix';
+
+                html += `
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h4 class="font-bold">Pedido #${order.ps_order_id}</h4>
+                                <p class="text-sm text-gray-500">${orderDate}</p>
+                                <p class="text-sm text-gray-500">${order.customer_name}</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="status-badge ${statusClass}">${order.status === 'pending' ? 'Pendente' : order.status === 'delivered' ? 'Entregue' : 'Cancelado'}</span>
+                                <br><br>
+                                <span class="payment-method-badge ${paymentClass}">${order.payment_method === 'pix' ? 'PIX' : order.payment_method === 'credit' ? 'Cartão Crédito' : order.payment_method === 'debit' ? 'Cartão Débito' : 'Dinheiro'}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="border-t pt-4">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <p class="font-bold text-lg">${formatCurrency(order.total_amount)}</p>
+                                    <p class="text-sm text-gray-500">${order.items ? JSON.parse(order.items).length : 0} item(s)</p>
+                                </div>
+                                <div class="flex gap-2">
+                                    <button class="view-order-btn bg-blue-500 text-white px-3 py-1 rounded text-sm" data-id="${order.ps_order_id}">Ver Detalhes</button>
+                                    ${order.status === 'pending' ? `
+                                        <button class="mark-delivered-btn bg-green-500 text-white px-3 py-1 rounded text-sm" data-id="${order.ps_order_id}">Marcar Entregue</button>
+                                    ` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html || '<div class="text-center py-12 text-gray-500">Nenhum pedido encontrado</div>';
+
+            // Adicionar eventos
+            setupOrderEvents();
+        }
+
+        // Atualizar dashboard
+        function updateDashboard() {
+            const today = new Date();
+            const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+            const startOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+
+            // Calcular vendas do dia
+            const dailySales = ordersDB
+                .filter(o => o.status === 'delivered' && new Date(o.created_at) >= startOfDay)
+                .reduce((sum, o) => sum + o.total_amount, 0);
+
+            // Calcular vendas do mês
+            const monthlySales = ordersDB
+                .filter(o => o.status === 'delivered' && new Date(o.created_at) >= startOfMonth)
+                .reduce((sum, o) => sum + o.total_amount, 0);
+
+            // Contar pedidos pendentes
+            const pendingOrders = ordersDB.filter(o => o.status === 'pending').length;
+
+            // Atualizar elementos
+            document.getElementById('sales-today').textContent = formatCurrency(dailySales);
+            document.getElementById('sales-month').textContent = formatCurrency(monthlySales);
+            document.getElementById('pending-orders').textContent = pendingOrders;
+            document.getElementById('total-products').textContent = productsDB.length;
+
+            // Carregar últimos pedidos
+            loadRecentOrders();
+        }
+
+        // Carregar últimos pedidos
+        function loadRecentOrders() {
+            const container = document.getElementById('recent-orders');
+            const recentOrders = ordersDB.slice(0, 5);
+
+            if (recentOrders.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-8 text-gray-500">
+                        <i class="fas fa-shopping-bag text-3xl mb-2"></i>
+                        <p>Nenhum pedido encontrado</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '';
+            recentOrders.forEach(order => {
+                const orderDate = new Date(order.created_at).toLocaleDateString('pt-BR');
+                html += `
+                    <div class="flex justify-between items-center p-3 border-b border-gray-200 dark:border-gray-700 last:border-b-0">
+                        <div>
+                            <p class="font-semibold">Pedido #${order.ps_order_id}</p>
+                            <p class="text-sm text-gray-500">${order.customer_name} - ${orderDate}</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-bold">${formatCurrency(order.total_amount)}</p>
+                            <span class="status-badge ${order.status === 'pending' ? 'status-pending' : 'status-delivered'}">${order.status === 'pending' ? 'Pendente' : 'Entregue'}</span>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
         }
 
         // Configurar eventos dos produtos
@@ -1369,22 +1928,125 @@
         function setupAdminCategoryEvents() {
             document.querySelectorAll('.edit-category-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
-                    const code = btn.getAttribute('data-code');
-                    editCategory(code);
+                    const id = parseInt(btn.getAttribute('data-id'));
+                    editCategory(id);
                 });
             });
 
             document.querySelectorAll('.delete-category-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
-                    const code = btn.getAttribute('data-code');
-                    deleteCategory(code);
+                    const id = parseInt(btn.getAttribute('data-id'));
+                    deleteCategory(id);
                 });
             });
         }
 
-        // Abrir modal do produto
+        // Configurar eventos de pedidos
+        function setupOrderEvents() {
+            document.querySelectorAll('.view-order-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const id = parseInt(btn.getAttribute('data-id'));
+                    viewOrderDetails(id);
+                });
+            });
+
+            document.querySelectorAll('.mark-delivered-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const id = parseInt(btn.getAttribute('data-id'));
+                    markOrderAsDelivered(id);
+                });
+            });
+        }
+
+        // Ver detalhes do pedido
+        function viewOrderDetails(orderId) {
+            const order = ordersDB.find(o => o.ps_order_id === orderId);
+            if (!order) return;
+
+            const modal = document.getElementById('order-details-modal');
+            const content = document.getElementById('order-details-content');
+            
+            const orderDate = new Date(order.created_at).toLocaleDateString('pt-BR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+
+            const items = order.items ? JSON.parse(order.items) : [];
+            
+            let itemsHtml = '';
+            items.forEach(item => {
+                itemsHtml += `
+                    <div class="flex justify-between items-center py-2 border-b border-gray-200 dark:border-gray-700 last:border-b-0">
+                        <div>
+                            <p class="font-semibold">${item.name}</p>
+                            <p class="text-sm text-gray-500">Quantidade: ${item.quantity}</p>
+                            ${item.flavor ? `<p class="text-sm text-gray-500">Sabor: ${item.flavor}</p>` : ''}
+                        </div>
+                        <p class="font-bold">${formatCurrency(item.price * item.quantity)}</p>
+                    </div>
+                `;
+            });
+
+            content.innerHTML = `
+                <div class="mb-4">
+                    <h4 class="font-bold text-lg mb-2">Pedido #${order.ps_order_id}</h4>
+                    <p><strong>Data:</strong> ${orderDate}</p>
+                    <p><strong>Cliente:</strong> ${order.customer_name}</p>
+                    <p><strong>Telefone:</strong> ${order.customer_phone}</p>
+                    <p><strong>Status:</strong> <span class="status-badge ${order.status === 'pending' ? 'status-pending' : 'status-delivered'}">${order.status === 'pending' ? 'Pendente' : 'Entregue'}</span></p>
+                    <p><strong>Pagamento:</strong> <span class="payment-method-badge ${order.payment_method === 'pix' ? 'payment-pix' : order.payment_method === 'credit' ? 'payment-credit' : order.payment_method === 'debit' ? 'payment-debit' : 'payment-cash'}">${order.payment_method === 'pix' ? 'PIX' : order.payment_method === 'credit' ? 'Cartão Crédito' : order.payment_method === 'debit' ? 'Cartão Débito' : 'Dinheiro'}</span></p>
+                </div>
+                
+                <div class="mb-4">
+                    <h5 class="font-bold mb-2">Itens do Pedido:</h5>
+                    <div class="space-y-2">
+                        ${itemsHtml}
+                    </div>
+                </div>
+                
+                <div class="border-t pt-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <span>Subtotal:</span>
+                        <span>${formatCurrency(order.subtotal_amount)}</span>
+                    </div>
+                    <div class="flex justify-between items-center mb-2">
+                        <span>Frete:</span>
+                        <span>${formatCurrency(order.shipping_amount)}</span>
+                    </div>
+                    <div class="flex justify-between items-center text-lg font-bold">
+                        <span>Total:</span>
+                        <span>${formatCurrency(order.total_amount)}</span>
+                    </div>
+                </div>
+                
+                ${order.status === 'pending' ? `
+                    <div class="mt-4 flex justify-end">
+                        <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600" onclick="markOrderAsDelivered(${order.ps_order_id}); document.getElementById('order-details-modal').classList.add('hidden');">
+                            Marcar como Entregue
+                        </button>
+                    </div>
+                ` : ''}
+            `;
+
+            modal.classList.remove('hidden');
+        }
+
+        // Marcar pedido como entregue
+        async function markOrderAsDelivered(orderId) {
+            const result = await updateOrderStatus(orderId, 'delivered');
+            if (result.success) {
+                showAlert('Pedido marcado como entregue!');
+            } else {
+                showAlert('Erro ao atualizar pedido!', 'error');
+            }
+        }
+
+        // Abrir modal do produto melhorado
         function openProductModal(productId) {
-            const product = productsDB.find(p => p.id === productId);
+            const product = productsDB.find(p => p.ps_product_id === productId);
             if (!product) return;
 
             const modal = document.getElementById('product-modal');
@@ -1392,36 +2054,94 @@
 
             document.getElementById('modal-product-image').src = imageUrl;
             document.getElementById('modal-product-name').textContent = product.name;
+            document.getElementById('modal-product-brand').textContent = product.brand || '';
+            document.getElementById('modal-product-weight').textContent = product.weight || '';
             document.getElementById('modal-product-description').textContent = product.description;
             document.getElementById('modal-product-price').textContent = formatCurrency(product.price);
             document.getElementById('modal-product-old-price').textContent = product.old_price ? formatCurrency(product.old_price) : '';
-            document.getElementById('modal-add-to-cart').setAttribute('data-product-id', product.id);
+            document.getElementById('modal-add-to-cart').setAttribute('data-product-id', product.ps_product_id);
+
+            // Benefícios
+            if (product.benefits) {
+                const benefitsContainer = document.getElementById('modal-product-benefits');
+                const benefits = product.benefits.split(',').map(b => b.trim());
+                benefitsContainer.innerHTML = benefits.map(benefit => 
+                    `<span class="benefit-tag">${benefit}</span>`
+                ).join('');
+            }
+
+            // Sabores
+            if (product.flavors) {
+                const flavorsContainer = document.getElementById('modal-product-flavors');
+                const flavorsSection = document.getElementById('modal-product-flavors-container');
+                const flavors = product.flavors.split(',').map(f => f.trim());
+                
+                flavorsContainer.innerHTML = flavors.map(flavor => 
+                    `<div class="flavor-option" data-flavor="${flavor}">${flavor}</div>`
+                ).join('');
+                
+                flavorsSection.style.display = 'block';
+                selectedFlavor = flavors[0]; // Selecionar primeiro sabor por padrão
+                
+                // Adicionar eventos de clique nos sabores
+                flavorsContainer.querySelectorAll('.flavor-option').forEach((option, index) => {
+                    if (index === 0) option.classList.add('selected');
+                    option.addEventListener('click', () => {
+                        flavorsContainer.querySelectorAll('.flavor-option').forEach(o => o.classList.remove('selected'));
+                        option.classList.add('selected');
+                        selectedFlavor = option.getAttribute('data-flavor');
+                    });
+                });
+            } else {
+                document.getElementById('modal-product-flavors-container').style.display = 'none';
+            }
+
+            // Ingredientes
+            if (product.ingredients) {
+                document.getElementById('modal-product-ingredients').textContent = product.ingredients;
+                document.getElementById('modal-product-ingredients-container').style.display = 'block';
+            } else {
+                document.getElementById('modal-product-ingredients-container').style.display = 'none';
+            }
+
+            // Modo de uso
+            if (product.usage) {
+                document.getElementById('modal-product-usage').textContent = product.usage;
+                document.getElementById('modal-product-usage-container').style.display = 'block';
+            } else {
+                document.getElementById('modal-product-usage-container').style.display = 'none';
+            }
 
             modal.classList.remove('hidden');
         }
 
         // Adicionar ao carrinho
         function addToCart(productId, quantity = 1) {
-            const product = productsDB.find(p => p.id === productId);
+            const product = productsDB.find(p => p.ps_product_id === productId);
             if (!product) return;
 
-            const existingItem = cart.find(item => item.productId === productId);
+            const flavor = selectedFlavor || '';
+            const cartKey = `${productId}_${flavor}`;
+            const existingItem = cart.find(item => item.cartKey === cartKey);
             const imageUrl = Array.isArray(product.images) ? product.images[0] : product.image_url;
 
             if (existingItem) {
                 existingItem.quantity += quantity;
             } else {
                 cart.push({
+                    cartKey,
                     productId,
                     name: product.name,
                     price: product.price,
                     image: imageUrl,
-                    quantity
+                    quantity,
+                    flavor: flavor,
+                    weight: product.weight || ''
                 });
             }
 
             updateCartDisplay();
-            showAlert('Produto adicionado ao carrinho!');
+            showAlert(`${product.name}${flavor ? ` (${flavor})` : ''} adicionado ao carrinho!`);
         }
 
         // Atualizar display do carrinho
@@ -1430,17 +2150,25 @@
             const cartCount = document.getElementById('cart-count');
             const mobileCartCount = document.getElementById('mobile-cart-count');
             const cartSubtotal = document.getElementById('cart-subtotal');
+            const cartShipping = document.getElementById('cart-shipping');
             const cartTotal = document.getElementById('cart-total');
             const proceedBtn = document.getElementById('proceed-checkout');
 
             const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
             const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const shipping = 10;
+            
+            // Calcular frete
+            let shipping = 0;
+            if (subtotal > 0) {
+                shipping = (subtotal >= shippingConfig.freeShippingLimit) ? 0 : shippingConfig.price;
+            }
+            
             const total = subtotal + shipping;
 
             cartCount.textContent = totalItems;
             mobileCartCount.textContent = totalItems;
             cartSubtotal.textContent = formatCurrency(subtotal);
+            cartShipping.textContent = shipping === 0 ? 'Grátis' : formatCurrency(shipping);
             cartTotal.textContent = formatCurrency(total);
 
             if (cart.length === 0) {
@@ -1459,6 +2187,8 @@
                             <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded mr-4">
                             <div class="flex-grow">
                                 <h4 class="font-medium">${item.name}</h4>
+                                ${item.flavor ? `<p class="text-sm text-gray-500">Sabor: ${item.flavor}</p>` : ''}
+                                ${item.weight ? `<p class="text-sm text-gray-500">Peso: ${item.weight}</p>` : ''}
                                 <div class="flex justify-between items-center mt-2">
                                     <div class="flex items-center">
                                         <button class="decrease-qty bg-gray-200 px-2 py-1 rounded-l" data-index="${index}">-</button>
@@ -1514,7 +2244,7 @@
 
         // Editar produto
         function editProduct(id) {
-            const product = productsDB.find(p => p.id === id);
+            const product = productsDB.find(p => p.ps_product_id === id);
             if (!product) return;
 
             currentEditingId = id;
@@ -1523,6 +2253,12 @@
             document.getElementById('product-category').value = product.category;
             document.getElementById('product-price').value = product.price;
             document.getElementById('product-old-price').value = product.old_price || '';
+            document.getElementById('product-weight').value = product.weight || '';
+            document.getElementById('product-brand').value = product.brand || '';
+            document.getElementById('product-flavors').value = product.flavors || '';
+            document.getElementById('product-benefits').value = product.benefits || '';
+            document.getElementById('product-ingredients').value = product.ingredients || '';
+            document.getElementById('product-usage').value = product.usage || '';
             document.getElementById('product-description').value = product.description;
             
             document.getElementById('product-form-title').textContent = 'Editar Produto';
@@ -1531,14 +2267,14 @@
         }
 
         // Editar categoria
-        function editCategory(code) {
-            const category = categoryData[code];
+        function editCategory(id) {
+            const category = Object.values(categoryData).find(cat => cat.ps_category_id === id);
             if (!category) return;
 
-            currentEditingId = code;
+            currentEditingId = id;
             
             document.getElementById('category-name').value = category.name;
-            document.getElementById('category-code').value = code;
+            document.getElementById('category-code').value = category.code;
             document.getElementById('category-description').value = category.description;
             
             document.getElementById('category-form-title').textContent = 'Editar Categoria';
@@ -1591,6 +2327,25 @@
             }
         }
 
+        // Atualizar display do frete
+        function updateShippingDisplay() {
+            // Atualizar nos elementos onde o frete é mostrado
+            if (cart.length > 0) {
+                updateCartDisplay();
+            }
+            
+            // Atualizar no formulário de configurações
+            const shippingPriceInput = document.getElementById('shipping-price');
+            const freeShippingLimitInput = document.getElementById('free-shipping-limit');
+            
+            if (shippingPriceInput) {
+                shippingPriceInput.value = shippingConfig.price;
+            }
+            if (freeShippingLimitInput) {
+                freeShippingLimitInput.value = shippingConfig.freeShippingLimit;
+            }
+        }
+
         // Navegar para categoria
         function navigateToCategory(categoryCode) {
             document.getElementById('category-filter').value = categoryCode;
@@ -1611,6 +2366,8 @@
                 document.getElementById('admin-panel').classList.remove('hidden');
                 if (currentAdminTab === 'products') loadAdminProducts();
                 if (currentAdminTab === 'categories') loadAdminCategories();
+                if (currentAdminTab === 'orders') loadOrders();
+                if (currentAdminTab === 'dashboard') updateDashboard();
             }
 
             if (page === 'products') loadProducts();
@@ -1628,6 +2385,9 @@
             
             if (tab === 'products') loadAdminProducts();
             if (tab === 'categories') loadAdminCategories();
+            if (tab === 'orders') loadOrders();
+            if (tab === 'dashboard') updateDashboard();
+            if (tab === 'settings') updateShippingDisplay();
         }
 
         // Configurar upload de imagens
@@ -1800,39 +2560,80 @@
             });
 
             // Finalizar compra
-            document.getElementById('proceed-checkout').addEventListener('click', () => {
+            document.getElementById('proceed-checkout').addEventListener('click', async () => {
                 if (cart.length === 0) return;
                 
+                const paymentMethod = document.getElementById('payment-method').value;
+                if (!paymentMethod) {
+                    showAlert('Selecione uma forma de pagamento!', 'error');
+                    return;
+                }
+                
                 const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-                const total = subtotal + 10; // frete
+                const shipping = (subtotal >= shippingConfig.freeShippingLimit) ? 0 : shippingConfig.price;
+                const total = subtotal + shipping;
                 
                 let message = '*Novo Pedido - Pro Supplements*\n\n';
                 message += '*ITENS DO PEDIDO*\n';
                 
                 cart.forEach(item => {
-                    message += `${item.quantity}x ${item.name} - ${formatCurrency(item.price * item.quantity)}\n`;
+                    message += `${item.quantity}x ${item.name}`;
+                    if (item.flavor) message += ` (${item.flavor})`;
+                    if (item.weight) message += ` - ${item.weight}`;
+                    message += ` - ${formatCurrency(item.price * item.quantity)}\n`;
                 });
                 
                 message += `\n*RESUMO*\n`;
                 message += `Subtotal: ${formatCurrency(subtotal)}\n`;
-                message += `Frete: R$ 10,00\n`;
-                message += `Total: ${formatCurrency(total)}`;
+                message += `Frete: ${shipping === 0 ? 'Grátis' : formatCurrency(shipping)}\n`;
+                message += `Total: ${formatCurrency(total)}\n`;
+                message += `\n*Forma de Pagamento:* ${paymentMethod === 'pix' ? 'PIX' : paymentMethod === 'credit' ? 'Cartão de Crédito' : paymentMethod === 'debit' ? 'Cartão de Débito' : 'Dinheiro'}\n`;
+                
+                // Salvar pedido no banco
+                const orderData = {
+                    customer_name: 'Cliente WhatsApp',
+                    customer_phone: '5575991342279',
+                    items: JSON.stringify(cart),
+                    subtotal_amount: subtotal,
+                    shipping_amount: shipping,
+                    total_amount: total,
+                    payment_method: paymentMethod,
+                    status: 'pending'
+                };
+                
+                const result = await saveOrder(orderData);
+                if (result.success) {
+                    message += `\n*Número do Pedido:* #${result.data.ps_order_id}`;
+                }
                 
                 const encodedMessage = encodeURIComponent(message);
                 const whatsappURL = `https://wa.me/5575991342279?text=${encodedMessage}`;
                 window.open(whatsappURL, '_blank');
                 
                 cart = [];
+                selectedFlavor = '';
+                document.getElementById('payment-method').value = '';
                 updateCartDisplay();
                 document.getElementById('cart-sidebar').style.transform = 'translateX(100%)';
+                
+                if (result.success) {
+                    showAlert('Pedido enviado com sucesso!');
+                }
             });
 
             // Modal produto
             document.getElementById('close-modal').addEventListener('click', () => {
                 document.getElementById('product-modal').classList.add('hidden');
             });
-            document.getElementById('modal-overlay').addEventListener('click', () => {
-                document.getElementById('product-modal').classList.add('hidden');
+            document.getElementById('product-modal').addEventListener('click', (e) => {
+                if (e.target === document.getElementById('product-modal')) {
+                    document.getElementById('product-modal').classList.add('hidden');
+                }
+            });
+
+            // Modal pedido
+            document.getElementById('close-order-modal').addEventListener('click', () => {
+                document.getElementById('order-details-modal').classList.add('hidden');
             });
 
             // Quantidade no modal
@@ -1867,13 +2668,15 @@
             // Filtros
             document.getElementById('category-filter').addEventListener('change', loadProducts);
             document.getElementById('sort-filter').addEventListener('change', loadProducts);
+            document.getElementById('order-status-filter').addEventListener('change', loadOrders);
+            document.getElementById('order-payment-filter').addEventListener('change', loadOrders);
 
             // Login
             document.getElementById('login-submit').addEventListener('click', () => {
                 const username = document.getElementById('login-username').value;
                 const password = document.getElementById('login-password').value;
                 
-                if (username === 'admin' && password === 'admin') {
+                if (username === 'admin' && password === 'admin123') {
                     isLoggedIn = true;
                     document.getElementById('login-modal').classList.add('hidden');
                     navigateTo('admin');
@@ -1914,13 +2717,18 @@
                 e.preventDefault();
                 hideFormError('product');
                 
-                const formData = new FormData(e.target);
                 const productData = {
-                    name: formData.get('product-name') || document.getElementById('product-name').value,
-                    category: formData.get('product-category') || document.getElementById('product-category').value,
+                    name: document.getElementById('product-name').value,
+                    category: document.getElementById('product-category').value,
                     price: parseFloat(document.getElementById('product-price').value),
                     old_price: document.getElementById('product-old-price').value ? parseFloat(document.getElementById('product-old-price').value) : null,
-                    description: formData.get('product-description') || document.getElementById('product-description').value,
+                    weight: document.getElementById('product-weight').value,
+                    brand: document.getElementById('product-brand').value,
+                    flavors: document.getElementById('product-flavors').value,
+                    benefits: document.getElementById('product-benefits').value,
+                    ingredients: document.getElementById('product-ingredients').value,
+                    usage: document.getElementById('product-usage').value,
+                    description: document.getElementById('product-description').value,
                     images: []
                 };
 
@@ -1969,7 +2777,6 @@
                 e.preventDefault();
                 hideFormError('category');
                 
-                const formData = new FormData(e.target);
                 const categoryData = {
                     code: document.getElementById('category-code').value,
                     name: document.getElementById('category-name').value,
@@ -1995,6 +2802,24 @@
                     showAlert('Categoria salva com sucesso!');
                 } else {
                     showFormError('category', result.error);
+                }
+            });
+
+            // Configurações
+            document.getElementById('settings-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                hideFormError('settings');
+                
+                const settingsData = {
+                    shipping_price: parseFloat(document.getElementById('shipping-price').value),
+                    free_shipping_limit: parseFloat(document.getElementById('free-shipping-limit').value) || 0
+                };
+
+                const result = await saveSettings(settingsData);
+                if (result.success) {
+                    showAlert('Configurações salvas com sucesso!');
+                } else {
+                    showFormError('settings', result.error);
                 }
             });
 
@@ -2029,8 +2854,8 @@
             // Configurar carrossel
             setupCarousel();
 
-            // Carregar produtos iniciais
-            loadProducts();
+            // Atualizar display inicial
+            updateShippingDisplay();
         });
     </script>
 </body>
