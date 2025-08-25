@@ -1609,7 +1609,17 @@
 
         // Salvar configurações
         async function saveSettings(settingsData) {
-            if (!supabase) return { success: false, error: 'Supabase não inicializado' };
+            if (!supabase) {
+                // Modo demo - salvar localmente
+                shippingConfig = {
+                    price: settingsData.shipping_price,
+                    freeShippingLimit: settingsData.free_shipping_limit
+                };
+                
+                updateShippingDisplay();
+                updateCartDisplay(); // Atualizar carrinho imediatamente
+                return { success: true };
+            }
 
             try {
                 const { data, error } = await supabase
@@ -1625,6 +1635,7 @@
                 };
                 
                 updateShippingDisplay();
+                updateCartDisplay(); // Atualizar carrinho imediatamente
                 return { success: true };
             } catch (error) {
                 console.error('Erro ao salvar configurações:', error);
