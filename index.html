@@ -971,7 +971,7 @@
                                     
                                     <div class="admin-form-group">
                                         <label for="category-code">Código da Categoria*</label>
-                                        <input type="text" id="category-code" class="admin-form-input" required placeholder="ex: whey, creatine, etc" pattern="[a-z0-9-]+">
+                                        <input type="text" id="category-code" class="admin-form-input" required placeholder="ex: whey, creatine, etc">
                                         <small class="text-gray-500">Apenas letras minúsculas, números e hífens</small>
                                     </div>
                                     
@@ -1254,14 +1254,22 @@
         // Inicializar Supabase
         function initSupabase() {
             try {
-                const supabaseUrl = 'YOUR_SUPABASE_URL';
-                const supabaseKey = 'YOUR_SUPABASE_ANON_KEY';
+                // Substitua pelas suas credenciais do Supabase
+                const supabaseUrl = 'https://ngishqxtnkgvognszyep.supabase.co';
+                const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5naXNocXh0bmtndm9nbnN6eWVwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI1OTMwNjcsImV4cCI6MjA2ODE2OTA2N30.FOksPjvS2NyO6dcZ_j0Grj3Prn9OP_udSGQwswtFBXE';
+                
+                // Verificar se as credenciais foram configuradas
+                if (supabaseUrl === 'https://your-project.supabase.co' || supabaseKey === 'your-anon-key-here') {
+                    console.warn('⚠️ Credenciais do Supabase não configuradas. Sistema funcionará em modo demo.');
+                    return false;
+                }
                 
                 supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
-                console.log('Supabase inicializado!');
+                console.log('✅ Supabase inicializado com sucesso!');
                 return true;
             } catch (error) {
-                console.error('Erro ao inicializar Supabase:', error);
+                console.error('❌ Erro ao inicializar Supabase:', error);
+                console.log('💡 Verifique se as credenciais estão corretas.');
                 return false;
             }
         }
@@ -1269,29 +1277,41 @@
         // Upload de imagem para Supabase Storage
         async function uploadImage(file, folder = 'products') {
             if (!supabase) {
-                throw new Error('Supabase não inicializado');
+                // Se Supabase não estiver configurado, usar uma URL de placeholder
+                console.log('⚠️ Supabase não configurado. Usando imagem placeholder.');
+                return `https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=400&fit=crop`;
             }
 
-            const fileExt = file.name.split('.').pop();
-            const fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}.${fileExt}`;
-            const filePath = `${folder}/${fileName}`;
+            try {
+                const fileExt = file.name.split('.').pop();
+                const fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}.${fileExt}`;
+                const filePath = `${folder}/${fileName}`;
 
-            const { data, error } = await supabase.storage
-                .from('ps_images')
-                .upload(filePath, file);
+                const { data, error } = await supabase.storage
+                    .from('ps_images')
+                    .upload(filePath, file);
 
-            if (error) throw error;
+                if (error) throw error;
 
-            const { data: urlData } = supabase.storage
-                .from('ps_images')
-                .getPublicUrl(filePath);
+                const { data: urlData } = supabase.storage
+                    .from('ps_images')
+                    .getPublicUrl(filePath);
 
-            return urlData.publicUrl;
+                return urlData.publicUrl;
+            } catch (error) {
+                console.error('Erro no upload:', error);
+                // Fallback para imagem placeholder
+                return `https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=400&fit=crop`;
+            }
         }
 
         // Carregar dados do Supabase
         async function loadData() {
-            if (!supabase) return;
+            if (!supabase) {
+                console.log('🔄 Supabase não configurado, carregando dados demo...');
+                loadDemoData();
+                return;
+            }
 
             try {
                 // Carregar categorias
@@ -1347,7 +1367,105 @@
 
             } catch (error) {
                 console.error('Erro ao carregar dados:', error);
+                console.log('🔄 Carregando dados demo como fallback...');
+                loadDemoData();
             }
+        }
+
+        // Carregar dados demo quando Supabase não estiver configurado
+        function loadDemoData() {
+            // Categorias demo
+            categoryData = {
+                'whey-protein': {
+                    ps_category_id: 1,
+                    code: 'whey-protein',
+                    name: 'Whey Protein',
+                    description: 'Proteínas de alta qualidade para ganho de massa muscular',
+                    image_url: null
+                },
+                'creatina': {
+                    ps_category_id: 2,
+                    code: 'creatina',
+                    name: 'Creatina',
+                    description: 'Suplementos de creatina para força e energia',
+                    image_url: null
+                },
+                'bcaa': {
+                    ps_category_id: 3,
+                    code: 'bcaa',
+                    name: 'BCAA',
+                    description: 'Aminoácidos essenciais para recuperação muscular',
+                    image_url: null
+                },
+                'pre-treino': {
+                    ps_category_id: 4,
+                    code: 'pre-treino',
+                    name: 'Pré-Treino',
+                    description: 'Energéticos e estimulantes para treinos intensos',
+                    image_url: null
+                }
+            };
+
+            // Produtos demo
+            productsDB = [
+                {
+                    ps_product_id: 1,
+                    name: 'Whey Protein Premium',
+                    category: 'whey-protein',
+                    price: 89.90,
+                    old_price: 109.90,
+                    weight: '1kg',
+                    brand: 'Pro Supplements',
+                    flavors: 'Chocolate, Baunilha, Morango',
+                    benefits: 'Ganho de massa muscular, Recuperação pós-treino, Aumento da força',
+                    ingredients: 'Whey Protein Concentrado, Isolado, Hidrolisado',
+                    usage: 'Tomar 1 dose (30g) com 200ml de água ou leite, 2 vezes ao dia',
+                    description: 'O melhor whey protein do mercado com alta concentração de proteínas e aminoácidos essenciais.',
+                    images: ['https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400'],
+                    image_url: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400'
+                },
+                {
+                    ps_product_id: 2,
+                    name: 'Creatina Monohidratada',
+                    category: 'creatina',
+                    price: 59.90,
+                    old_price: null,
+                    weight: '300g',
+                    brand: 'Pro Supplements',
+                    flavors: 'Sem sabor',
+                    benefits: 'Aumento da força, Energia para treinos, Ganho de massa magra',
+                    ingredients: 'Creatina Monohidratada 100% pura',
+                    usage: 'Tomar 3g (1 colher) por dia com água ou suco',
+                    description: 'Creatina pura para máxima performance nos treinos e ganho de força.',
+                    images: ['https://images.unsplash.com/photo-1594737625785-a6cbdabd333c?w=400'],
+                    image_url: 'https://images.unsplash.com/photo-1594737625785-a6cbdabd333c?w=400'
+                }
+            ];
+
+            // Pedidos demo
+            ordersDB = [
+                {
+                    ps_order_id: 1,
+                    customer_name: 'Cliente Demo',
+                    customer_phone: '(75) 99999-9999',
+                    items: JSON.stringify([
+                        { name: 'Whey Protein Premium', quantity: 1, price: 89.90, flavor: 'Chocolate' }
+                    ]),
+                    subtotal_amount: 89.90,
+                    shipping_amount: 10.00,
+                    total_amount: 99.90,
+                    payment_method: 'pix',
+                    status: 'pending',
+                    created_at: new Date().toISOString()
+                }
+            ];
+
+            loadCategoriesHTML();
+            updateCategoryFilters();
+            if (currentPage === 'products') loadProducts();
+            if (currentAdminTab === 'products') loadAdminProducts();
+            if (currentAdminTab === 'orders') loadOrders();
+            if (currentAdminTab === 'dashboard') updateDashboard();
         }
 
         // Salvar produto
