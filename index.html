@@ -539,6 +539,21 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        @media print {
+            body * { 
+                visibility: hidden; 
+            }
+            .print-content, .print-content * { 
+                visibility: visible; 
+            }
+            .print-content { 
+                position: absolute; 
+                left: 0; 
+                top: 0; 
+                width: 100%; 
+            }
+        }
     </style>
 </head>
 <body class="bg-light dark:bg-dark text-gray-800 dark:text-white">
@@ -1174,17 +1189,6 @@
                     <span id="cart-total" class="font-bold">R$ 10,00</span>
                 </div>
 
-                <div class="mb-4">
-                    <label class="block font-medium mb-2">Forma de Pagamento:</label>
-                    <select id="payment-method" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-primary text-base">
-                        <option value="">Selecione...</option>
-                        <option value="pix">PIX</option>
-                        <option value="credit">Cartão de Crédito</option>
-                        <option value="debit">Cartão de Débito</option>
-                        <option value="cash">Dinheiro</option>
-                    </select>
-                </div>
-
                 <button id="proceed-checkout" class="w-full bg-primary text-white font-semibold py-3 rounded-lg hover:bg-opacity-90 transition mb-3 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
                     Finalizar Compra
                 </button>
@@ -1205,8 +1209,128 @@
                 </button>
                 
                 <div class="p-6">
-                    <h3 class="text-xl font-bold mb-4">Detalhes do Pedido</h3>
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold">Detalhes do Pedido</h3>
+                        <button id="print-order-btn" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">
+                            <i class="fas fa-print mr-2"></i>Imprimir/PDF
+                        </button>
+                    </div>
                     <div id="order-details-content"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Checkout -->
+    <div id="checkout-modal" class="fixed inset-0 z-50 hidden modal-backdrop">
+        <div class="flex items-center justify-center min-h-screen px-4">
+            <div class="relative w-full max-w-4xl bg-white dark:bg-gray-800 rounded-lg shadow-xl max-h-[90vh] overflow-y-auto">
+                <button class="absolute top-4 right-4 z-10 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 text-2xl" id="close-checkout-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+                
+                <div class="p-6">
+                    <h3 class="text-2xl font-bold mb-6">Finalizar Compra</h3>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <!-- Formulário de Entrega -->
+                        <div>
+                            <h4 class="text-lg font-bold mb-4">Dados de Entrega</h4>
+                            <form id="checkout-form" class="space-y-4">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block font-medium mb-2">Nome Completo*</label>
+                                        <input type="text" id="checkout-name" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-primary text-base" required>
+                                    </div>
+                                    <div>
+                                        <label class="block font-medium mb-2">Telefone*</label>
+                                        <input type="tel" id="checkout-phone" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-primary text-base" required>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <label class="block font-medium mb-2">E-mail</label>
+                                    <input type="email" id="checkout-email" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-primary text-base">
+                                </div>
+                                
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                    <div>
+                                        <label class="block font-medium mb-2">CEP*</label>
+                                        <input type="text" id="checkout-cep" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-primary text-base" required>
+                                    </div>
+                                    <div class="sm:col-span-2">
+                                        <label class="block font-medium mb-2">Endereço*</label>
+                                        <input type="text" id="checkout-address" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-primary text-base" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                    <div>
+                                        <label class="block font-medium mb-2">Número*</label>
+                                        <input type="text" id="checkout-number" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-primary text-base" required>
+                                    </div>
+                                    <div class="sm:col-span-2">
+                                        <label class="block font-medium mb-2">Complemento</label>
+                                        <input type="text" id="checkout-complement" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-primary text-base">
+                                    </div>
+                                </div>
+                                
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block font-medium mb-2">Bairro*</label>
+                                        <input type="text" id="checkout-neighborhood" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-primary text-base" required>
+                                    </div>
+                                    <div>
+                                        <label class="block font-medium mb-2">Cidade*</label>
+                                        <input type="text" id="checkout-city" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-primary text-base" required>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <label class="block font-medium mb-2">Observações</label>
+                                    <textarea id="checkout-notes" rows="3" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-primary text-base" placeholder="Ponto de referência, instruções especiais..."></textarea>
+                                </div>
+                                
+                                <div>
+                                    <label class="block font-medium mb-2">Forma de Pagamento*</label>
+                                    <select id="checkout-payment" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-primary text-base" required>
+                                        <option value="">Selecione...</option>
+                                        <option value="pix">PIX</option>
+                                        <option value="credit">Cartão de Crédito</option>
+                                        <option value="debit">Cartão de Débito</option>
+                                        <option value="cash">Dinheiro</option>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <!-- Resumo do Pedido -->
+                        <div>
+                            <h4 class="text-lg font-bold mb-4">Resumo do Pedido</h4>
+                            <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+                                <div id="checkout-items" class="space-y-3 mb-4"></div>
+                                
+                                <div class="border-t pt-4 space-y-2">
+                                    <div class="flex justify-between">
+                                        <span>Subtotal:</span>
+                                        <span id="checkout-subtotal" class="font-bold">R$ 0,00</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>Frete:</span>
+                                        <span id="checkout-shipping" class="font-bold">R$ 0,00</span>
+                                    </div>
+                                    <div class="flex justify-between text-lg font-bold text-primary border-t pt-2">
+                                        <span>Total:</span>
+                                        <span id="checkout-total">R$ 0,00</span>
+                                    </div>
+                                </div>
+                                
+                                <button type="submit" form="checkout-form" id="confirm-order-btn" class="w-full bg-primary text-white font-semibold py-3 rounded-lg hover:bg-opacity-90 transition mt-6">
+                                    Confirmar Pedido
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -2120,47 +2244,81 @@
             });
 
             content.innerHTML = `
-                <div class="mb-4">
-                    <h4 class="font-bold text-lg mb-2">Pedido #${order.ps_order_id}</h4>
-                    <p><strong>Data:</strong> ${orderDate}</p>
-                    <p><strong>Cliente:</strong> ${order.customer_name}</p>
-                    <p><strong>Telefone:</strong> ${order.customer_phone}</p>
-                    <p><strong>Status:</strong> <span class="status-badge ${order.status === 'pending' ? 'status-pending' : 'status-delivered'}">${order.status === 'pending' ? 'Pendente' : 'Entregue'}</span></p>
-                    <p><strong>Pagamento:</strong> <span class="payment-method-badge ${order.payment_method === 'pix' ? 'payment-pix' : order.payment_method === 'credit' ? 'payment-credit' : order.payment_method === 'debit' ? 'payment-debit' : 'payment-cash'}">${order.payment_method === 'pix' ? 'PIX' : order.payment_method === 'credit' ? 'Cartão Crédito' : order.payment_method === 'debit' ? 'Cartão Débito' : 'Dinheiro'}</span></p>
+                <div class="print-content">
+                    <div class="mb-4">
+                        <h4 class="font-bold text-lg mb-2">Pedido #${order.ps_order_id}</h4>
+                        <p><strong>Data:</strong> ${orderDate}</p>
+                        <p><strong>Cliente:</strong> ${order.customer_name}</p>
+                        <p><strong>Telefone:</strong> ${order.customer_phone}</p>
+                        <p><strong>Status:</strong> <span class="status-badge ${order.status === 'pending' ? 'status-pending' : 'status-delivered'}">${order.status === 'pending' ? 'Pendente' : 'Entregue'}</span></p>
+                        <p><strong>Pagamento:</strong> <span class="payment-method-badge ${order.payment_method === 'pix' ? 'payment-pix' : order.payment_method === 'credit' ? 'payment-credit' : order.payment_method === 'debit' ? 'payment-debit' : 'payment-cash'}">${order.payment_method === 'pix' ? 'PIX' : order.payment_method === 'credit' ? 'Cartão Crédito' : order.payment_method === 'debit' ? 'Cartão Débito' : 'Dinheiro'}</span></p>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h5 class="font-bold mb-2">Itens do Pedido:</h5>
+                        <div class="space-y-2">
+                            ${itemsHtml}
+                        </div>
+                    </div>
+                    
+                    <div class="border-t pt-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <span>Subtotal:</span>
+                            <span>${formatCurrency(order.subtotal_amount)}</span>
+                        </div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span>Frete:</span>
+                            <span>${formatCurrency(order.shipping_amount)}</span>
+                        </div>
+                        <div class="flex justify-between items-center text-lg font-bold">
+                            <span>Total:</span>
+                            <span>${formatCurrency(order.total_amount)}</span>
+                        </div>
+                    </div>
+                    
+                    ${order.status === 'pending' ? `
+                        <div class="mt-4 flex justify-end no-print">
+                            <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600" onclick="markOrderAsDelivered(${order.ps_order_id}); document.getElementById('order-details-modal').classList.add('hidden');">
+                                Marcar como Entregue
+                            </button>
+                        </div>
+                    ` : ''}
                 </div>
-                
-                <div class="mb-4">
-                    <h5 class="font-bold mb-2">Itens do Pedido:</h5>
-                    <div class="space-y-2">
-                        ${itemsHtml}
-                    </div>
-                </div>
-                
-                <div class="border-t pt-4">
-                    <div class="flex justify-between items-center mb-2">
-                        <span>Subtotal:</span>
-                        <span>${formatCurrency(order.subtotal_amount)}</span>
-                    </div>
-                    <div class="flex justify-between items-center mb-2">
-                        <span>Frete:</span>
-                        <span>${formatCurrency(order.shipping_amount)}</span>
-                    </div>
-                    <div class="flex justify-between items-center text-lg font-bold">
-                        <span>Total:</span>
-                        <span>${formatCurrency(order.total_amount)}</span>
-                    </div>
-                </div>
-                
-                ${order.status === 'pending' ? `
-                    <div class="mt-4 flex justify-end">
-                        <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600" onclick="markOrderAsDelivered(${order.ps_order_id}); document.getElementById('order-details-modal').classList.add('hidden');">
-                            Marcar como Entregue
-                        </button>
-                    </div>
-                ` : ''}
             `;
 
+            // Configurar botão de imprimir
+            document.getElementById('print-order-btn').onclick = () => {
+                window.print();
+            };
+
             modal.classList.remove('hidden');
+        }
+
+        // Atualizar resumo do checkout
+        function updateCheckoutSummary() {
+            const itemsContainer = document.getElementById('checkout-items');
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const shipping = (subtotal >= shippingConfig.freeShippingLimit) ? 0 : shippingConfig.price;
+            const total = subtotal + shipping;
+
+            let itemsHtml = '';
+            cart.forEach(item => {
+                itemsHtml += `
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="font-medium">${item.name}</p>
+                            <p class="text-sm text-gray-500">${item.quantity}x ${formatCurrency(item.price)}</p>
+                            ${item.flavor ? `<p class="text-xs text-gray-500">Sabor: ${item.flavor}</p>` : ''}
+                        </div>
+                        <p class="font-bold">${formatCurrency(item.price * item.quantity)}</p>
+                    </div>
+                `;
+            });
+
+            itemsContainer.innerHTML = itemsHtml;
+            document.getElementById('checkout-subtotal').textContent = formatCurrency(subtotal);
+            document.getElementById('checkout-shipping').textContent = shipping === 0 ? 'Grátis' : formatCurrency(shipping);
+            document.getElementById('checkout-total').textContent = formatCurrency(total);
         }
 
         // Marcar pedido como entregue
@@ -2688,13 +2846,47 @@
                 document.getElementById('cart-sidebar').style.transform = 'translateX(100%)';
             });
 
-            // Finalizar compra
-            document.getElementById('proceed-checkout').addEventListener('click', async () => {
+            // Finalizar compra - abrir modal de checkout
+            document.getElementById('proceed-checkout').addEventListener('click', () => {
                 if (cart.length === 0) return;
                 
-                const paymentMethod = document.getElementById('payment-method').value;
-                if (!paymentMethod) {
-                    showAlert('Selecione uma forma de pagamento!', 'error');
+                // Fechar carrinho e abrir modal de checkout
+                document.getElementById('cart-sidebar').style.transform = 'translateX(100%)';
+                document.getElementById('checkout-modal').classList.remove('hidden');
+                
+                // Preencher dados do checkout
+                updateCheckoutSummary();
+            });
+
+            // Modal de checkout
+            document.getElementById('close-checkout-modal').addEventListener('click', () => {
+                document.getElementById('checkout-modal').classList.add('hidden');
+            });
+
+            // Formulário de checkout
+            document.getElementById('checkout-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const formData = new FormData(e.target);
+                const customerData = {
+                    name: document.getElementById('checkout-name').value,
+                    phone: document.getElementById('checkout-phone').value,
+                    email: document.getElementById('checkout-email').value,
+                    cep: document.getElementById('checkout-cep').value,
+                    address: document.getElementById('checkout-address').value,
+                    number: document.getElementById('checkout-number').value,
+                    complement: document.getElementById('checkout-complement').value,
+                    neighborhood: document.getElementById('checkout-neighborhood').value,
+                    city: document.getElementById('checkout-city').value,
+                    notes: document.getElementById('checkout-notes').value,
+                    paymentMethod: document.getElementById('checkout-payment').value
+                };
+
+                // Validar campos obrigatórios
+                if (!customerData.name || !customerData.phone || !customerData.cep || 
+                    !customerData.address || !customerData.number || !customerData.neighborhood || 
+                    !customerData.city || !customerData.paymentMethod) {
+                    showAlert('Preencha todos os campos obrigatórios!', 'error');
                     return;
                 }
                 
@@ -2703,8 +2895,19 @@
                 const total = subtotal + shipping;
                 
                 let message = '*Novo Pedido - Pro Supplements*\n\n';
-                message += '*ITENS DO PEDIDO*\n';
                 
+                message += '*DADOS DO CLIENTE*\n';
+                message += `Nome: ${customerData.name}\n`;
+                message += `Telefone: ${customerData.phone}\n`;
+                if (customerData.email) message += `E-mail: ${customerData.email}\n`;
+                message += `\n*ENDEREÇO DE ENTREGA*\n`;
+                message += `${customerData.address}, ${customerData.number}`;
+                if (customerData.complement) message += ` - ${customerData.complement}`;
+                message += `\n${customerData.neighborhood}, ${customerData.city}\n`;
+                message += `CEP: ${customerData.cep}\n`;
+                if (customerData.notes) message += `Observações: ${customerData.notes}\n`;
+                
+                message += `\n*ITENS DO PEDIDO*\n`;
                 cart.forEach(item => {
                     message += `${item.quantity}x ${item.name}`;
                     if (item.flavor) message += ` (${item.flavor})`;
@@ -2716,18 +2919,21 @@
                 message += `Subtotal: ${formatCurrency(subtotal)}\n`;
                 message += `Frete: ${shipping === 0 ? 'Grátis' : formatCurrency(shipping)}\n`;
                 message += `Total: ${formatCurrency(total)}\n`;
-                message += `\n*Forma de Pagamento:* ${paymentMethod === 'pix' ? 'PIX' : paymentMethod === 'credit' ? 'Cartão de Crédito' : paymentMethod === 'debit' ? 'Cartão de Débito' : 'Dinheiro'}\n`;
+                message += `\n*Forma de Pagamento:* ${customerData.paymentMethod === 'pix' ? 'PIX' : customerData.paymentMethod === 'credit' ? 'Cartão de Crédito' : customerData.paymentMethod === 'debit' ? 'Cartão de Débito' : 'Dinheiro'}\n`;
                 
                 // Salvar pedido no banco
                 const orderData = {
-                    customer_name: 'Cliente WhatsApp',
-                    customer_phone: '5575991342279',
+                    customer_name: customerData.name,
+                    customer_phone: customerData.phone,
+                    customer_email: customerData.email,
+                    delivery_address: `${customerData.address}, ${customerData.number}${customerData.complement ? ` - ${customerData.complement}` : ''}, ${customerData.neighborhood}, ${customerData.city}, CEP: ${customerData.cep}`,
                     items: JSON.stringify(cart),
                     subtotal_amount: subtotal,
                     shipping_amount: shipping,
                     total_amount: total,
-                    payment_method: paymentMethod,
-                    status: 'pending'
+                    payment_method: customerData.paymentMethod,
+                    status: 'pending',
+                    notes: customerData.notes
                 };
                 
                 const result = await saveOrder(orderData);
@@ -2741,9 +2947,9 @@
                 
                 cart = [];
                 selectedFlavor = '';
-                document.getElementById('payment-method').value = '';
+                document.getElementById('checkout-form').reset();
                 updateCartDisplay();
-                document.getElementById('cart-sidebar').style.transform = 'translateX(100%)';
+                document.getElementById('checkout-modal').classList.add('hidden');
                 
                 if (result.success) {
                     showAlert('Pedido enviado com sucesso!');
