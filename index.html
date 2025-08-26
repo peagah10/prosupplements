@@ -440,8 +440,8 @@
 
         .admin-form-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
+            grid-template-columns: 1fr;
+            gap: 40px;
         }
 
         .admin-form-group {
@@ -1495,7 +1495,7 @@
                                     <input type="text" id="product-brand" class="admin-form-input" placeholder="ex: Optimum Nutrition">
                                 </div>
                                 
-                                <div class="admin-form-group col-span-2">
+                                <div class="admin-form-group">
                                     <label for="product-flavors">
                                         <i class="fas fa-ice-cream mr-2"></i>Sabores Disponíveis*
                                     </label>
@@ -1503,28 +1503,28 @@
                                     <small class="text-gray-500 dark:text-gray-400 mt-2 block">Separe os sabores por vírgula</small>
                                 </div>
                                 
-                                <div class="admin-form-group col-span-2">
+                                <div class="admin-form-group">
                                     <label for="product-benefits">
                                         <i class="fas fa-heart mr-2"></i>Benefícios/Para que serve*
                                     </label>
                                     <textarea id="product-benefits" class="admin-form-textarea" placeholder="ex: Ganho de massa muscular, Recuperação pós-treino, Aumento da força..." required></textarea>
                                 </div>
                                 
-                                <div class="admin-form-group col-span-2">
+                                <div class="admin-form-group">
                                     <label for="product-ingredients">
                                         <i class="fas fa-list mr-2"></i>Ingredientes Principais
                                     </label>
                                     <input type="text" id="product-ingredients" class="admin-form-input" placeholder="Separados por vírgula: Whey Protein, BCAA, Creatina">
                                 </div>
                                 
-                                <div class="admin-form-group col-span-2">
+                                <div class="admin-form-group">
                                     <label for="product-usage">
                                         <i class="fas fa-info-circle mr-2"></i>Modo de Uso
                                     </label>
                                     <textarea id="product-usage" class="admin-form-textarea" placeholder="Como usar o produto, dosagem recomendada..."></textarea>
                                 </div>
                                 
-                                <div class="admin-form-group col-span-2">
+                                <div class="admin-form-group">
                                     <label for="product-images">
                                         <i class="fas fa-images mr-2"></i>Imagens do Produto*
                                     </label>
@@ -1537,14 +1537,14 @@
                                     <div id="product-images-preview" class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4"></div>
                                 </div>
                                 
-                                <div class="admin-form-group col-span-2">
+                                <div class="admin-form-group">
                                     <label for="product-description">
                                         <i class="fas fa-align-left mr-2"></i>Descrição Completa*
                                     </label>
                                     <textarea id="product-description" class="admin-form-textarea" required></textarea>
                                 </div>
                                 
-                                <div class="col-span-2 flex justify-end gap-4 mt-6">
+                                <div class="flex justify-end gap-4 mt-6">
                                     <button type="button" id="cancel-product-btn" class="admin-form-button secondary">
                                         <i class="fas fa-times mr-2"></i>Cancelar
                                     </button>
@@ -1585,51 +1585,49 @@
                                 <i class="fas fa-plus-circle mr-3 text-primary"></i>Adicionar Nova Categoria
                             </h3>
                             <div id="category-form-error" class="error-message hidden"></div>
-                            <form id="category-form">
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                    <div class="admin-form-group">
-                                        <label for="category-name">
-                                            <i class="fas fa-tag mr-2"></i>Nome da Categoria*
-                                        </label>
-                                        <input type="text" id="category-name" class="admin-form-input" required>
+                            <form id="category-form" class="admin-form-grid">
+                                <div class="admin-form-group">
+                                    <label for="category-name">
+                                        <i class="fas fa-tag mr-2"></i>Nome da Categoria*
+                                    </label>
+                                    <input type="text" id="category-name" class="admin-form-input" required>
+                                </div>
+                                
+                                <div class="admin-form-group">
+                                    <label for="category-code">
+                                        <i class="fas fa-code mr-2"></i>Código da Categoria*
+                                    </label>
+                                    <input type="text" id="category-code" class="admin-form-input" required placeholder="ex: whey, creatine, etc">
+                                    <small class="text-gray-500 dark:text-gray-400 mt-2 block">Apenas letras minúsculas, números e hífens</small>
+                                </div>
+                                
+                                <div class="admin-form-group">
+                                    <label for="category-description">
+                                        <i class="fas fa-align-left mr-2"></i>Descrição*
+                                    </label>
+                                    <textarea id="category-description" class="admin-form-textarea" required></textarea>
+                                </div>
+                                
+                                <div class="admin-form-group">
+                                    <label for="category-image">
+                                        <i class="fas fa-image mr-2"></i>Imagem da Categoria
+                                    </label>
+                                    <div class="image-upload-container" id="category-image-upload">
+                                        <i class="fas fa-cloud-upload-alt text-5xl text-gray-400 mb-4"></i>
+                                        <p class="text-gray-600 dark:text-gray-400 font-semibold">Clique aqui ou arraste uma imagem para fazer upload</p>
+                                        <p class="text-sm text-gray-500 mt-2">Formato recomendado: 300x300px (JPG, PNG, WEBP)</p>
+                                        <input type="file" id="category-image-input" class="hidden" accept="image/*">
                                     </div>
-                                    
-                                    <div class="admin-form-group">
-                                        <label for="category-code">
-                                            <i class="fas fa-code mr-2"></i>Código da Categoria*
-                                        </label>
-                                        <input type="text" id="category-code" class="admin-form-input" required placeholder="ex: whey, creatine, etc">
-                                        <small class="text-gray-500 dark:text-gray-400 mt-2 block">Apenas letras minúsculas, números e hífens</small>
-                                    </div>
-                                    
-                                    <div class="admin-form-group col-span-2">
-                                        <label for="category-description">
-                                            <i class="fas fa-align-left mr-2"></i>Descrição*
-                                        </label>
-                                        <textarea id="category-description" class="admin-form-textarea" required></textarea>
-                                    </div>
-                                    
-                                    <div class="admin-form-group col-span-2">
-                                        <label for="category-image">
-                                            <i class="fas fa-image mr-2"></i>Imagem da Categoria
-                                        </label>
-                                        <div class="image-upload-container" id="category-image-upload">
-                                            <i class="fas fa-cloud-upload-alt text-5xl text-gray-400 mb-4"></i>
-                                            <p class="text-gray-600 dark:text-gray-400 font-semibold">Clique aqui ou arraste uma imagem para fazer upload</p>
-                                            <p class="text-sm text-gray-500 mt-2">Formato recomendado: 300x300px (JPG, PNG, WEBP)</p>
-                                            <input type="file" id="category-image-input" class="hidden" accept="image/*">
-                                        </div>
-                                        <div id="category-image-preview" class="mt-4"></div>
-                                    </div>
-                                    
-                                    <div class="col-span-2 flex justify-end gap-4 mt-6">
-                                        <button type="button" id="cancel-category-btn" class="admin-form-button secondary">
-                                            <i class="fas fa-times mr-2"></i>Cancelar
-                                        </button>
-                                        <button type="submit" id="save-category-btn" class="admin-form-button">
-                                            <i class="fas fa-save mr-2"></i>Salvar Categoria
-                                        </button>
-                                    </div>
+                                    <div id="category-image-preview" class="mt-4"></div>
+                                </div>
+                                
+                                <div class="flex justify-end gap-4 mt-6">
+                                    <button type="button" id="cancel-category-btn" class="admin-form-button secondary">
+                                        <i class="fas fa-times mr-2"></i>Cancelar
+                                    </button>
+                                    <button type="submit" id="save-category-btn" class="admin-form-button">
+                                        <i class="fas fa-save mr-2"></i>Salvar Categoria
+                                    </button>
                                 </div>
                             </form>
                         </div>
