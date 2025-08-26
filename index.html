@@ -466,13 +466,40 @@
         .admin-form-select, 
         .admin-form-textarea {
             width: 100%;
-            padding: 15px 20px;
+            padding: 20px 25px;
             border: 2px solid #e2e8f0;
             border-radius: 12px;
-            font-size: 16px;
+            font-size: 18px;
             transition: all 0.3s ease;
             background: white;
             font-family: 'Montserrat', sans-serif;
+            text-align: center;
+            font-weight: 600;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+        }
+
+        .admin-form-input.name-input,
+        .admin-form-input#product-name,
+        .admin-form-input#category-name {
+            font-size: 20px;
+            padding: 25px 30px;
+            min-height: 70px;
+            text-align: center;
+            font-weight: 700;
+            background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+            border: 3px solid #e879f9;
+            box-shadow: 0 8px 25px rgba(93, 92, 222, 0.15);
+        }
+
+        .admin-form-input.name-input:focus,
+        .admin-form-input#product-name:focus,
+        .admin-form-input#category-name:focus {
+            border-color: #5D5CDE;
+            background: linear-gradient(135deg, #ffffff 0%, #faf5ff 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(93, 92, 222, 0.25);
         }
 
         .dark .admin-form-input, 
