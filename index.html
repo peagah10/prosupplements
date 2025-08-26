@@ -63,8 +63,35 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
         .animate {
             animation: fadeIn 0.8s ease forwards;
+        }
+
+        .animate-slide-left {
+            animation: slideInLeft 0.6s ease forwards;
+        }
+
+        .animate-slide-up {
+            animation: slideInUp 0.6s ease forwards;
+        }
+
+        .animate-scale {
+            animation: scaleIn 0.5s ease forwards;
         }
 
         .carousel {
@@ -271,21 +298,31 @@
             }
         }
 
+        /* Admin Panel Enhanced Styles */
         .admin-container {
-            padding: 20px;
-            max-width: 1200px;
+            padding: 30px;
+            max-width: 1400px;
             margin: 0 auto;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .dark .admin-container {
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
         }
 
         .admin-nav {
-            background-color: #f0f0f0;
-            border-radius: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
             overflow: hidden;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.1);
         }
 
         .dark .admin-nav {
-            background-color: #2a2a2a;
+            background: linear-gradient(135deg, #4c1d95 0%, #7c3aed 100%);
+            box-shadow: 0 15px 35px rgba(124, 58, 237, 0.3);
         }
 
         .admin-nav-tabs {
@@ -297,67 +334,152 @@
         }
 
         .admin-nav-item {
-            padding: 15px 20px;
+            padding: 20px 30px;
             cursor: pointer;
-            transition: all 0.2s;
-            font-weight: 500;
-            min-width: 120px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            min-width: 160px;
             text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .admin-nav-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .admin-nav-item:hover::before {
+            left: 100%;
         }
 
         .admin-nav-item:hover {
-            background-color: rgba(93, 92, 222, 0.1);
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            transform: translateY(-2px);
         }
 
         .admin-nav-item.active {
-            background-color: #5D5CDE;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ffa500 100%);
             color: white;
+            box-shadow: inset 0 -3px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        .admin-section-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            color: white;
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .admin-section-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        .dark .admin-section-header {
+            background: linear-gradient(135deg, #4c1d95 0%, #7c3aed 100%);
         }
 
         .admin-form-container {
-            background-color: white;
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            margin-bottom: 30px;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+            border: 1px solid rgba(93, 92, 222, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .admin-form-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b6b, #ffa500, #4ecdc4, #45b7d1);
+            background-size: 400% 400%;
+            animation: gradient-animation 3s ease infinite;
+        }
+
+        @keyframes gradient-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .dark .admin-form-container {
             background-color: #2a2a2a;
+            border-color: rgba(124, 58, 237, 0.2);
         }
 
         .admin-form-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            gap: 30px;
         }
 
         .admin-form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .admin-form-group label {
             display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #4a5568;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .dark .admin-form-group label {
+            color: #e2e8f0;
         }
 
         .admin-form-input, 
         .admin-form-select, 
         .admin-form-textarea {
             width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            padding: 15px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
             font-size: 16px;
-            transition: all 0.2s;
+            transition: all 0.3s ease;
+            background: white;
+            font-family: 'Montserrat', sans-serif;
         }
 
         .dark .admin-form-input, 
         .dark .admin-form-select, 
         .dark .admin-form-textarea {
-            background-color: #333;
-            border-color: #444;
+            background-color: #3a3a3a;
+            border-color: #4a5568;
             color: #fff;
         }
 
@@ -366,7 +488,8 @@
         .admin-form-textarea:focus {
             border-color: #5D5CDE;
             outline: none;
-            box-shadow: 0 0 0 3px rgba(93, 92, 222, 0.15);
+            box-shadow: 0 0 0 4px rgba(93, 92, 222, 0.15);
+            transform: translateY(-2px);
         }
 
         .admin-form-textarea {
@@ -375,88 +498,433 @@
         }
 
         .admin-form-button {
-            padding: 12px 25px;
-            background-color: #5D5CDE;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #5D5CDE 0%, #764ba2 100%);
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 12px;
             font-size: 16px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .admin-form-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .admin-form-button:hover::before {
+            left: 100%;
         }
 
         .admin-form-button:hover {
-            background-color: #4E4DBF;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(93, 92, 222, 0.4);
         }
 
         .admin-form-button.secondary {
-            background-color: #6B7280;
+            background: linear-gradient(135deg, #6B7280 0%, #4B5563 100%);
         }
 
         .admin-form-button.secondary:hover {
-            background-color: #4B5563;
+            box-shadow: 0 10px 25px rgba(107, 114, 128, 0.4);
+        }
+
+        /* Enhanced Product Cards in Admin */
+        .admin-product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .admin-product-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(93, 92, 222, 0.3);
+            border-color: #5D5CDE;
+        }
+
+        .dark .admin-product-card {
+            background-color: #2a2a2a;
+            border-color: #4a5568;
+        }
+
+        .admin-product-card .product-image-container {
+            height: 200px;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dark .admin-product-card .product-image-container {
+            background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+        }
+
+        .admin-product-card .product-image-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(93, 92, 222, 0.1) 50%, transparent 70%);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .admin-product-card:hover .product-image-container::before {
+            transform: translateX(100%);
+        }
+
+        .admin-product-card .product-content {
+            padding: 25px;
+        }
+
+        .admin-product-card .product-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #2d3748;
+            line-height: 1.3;
+        }
+
+        .dark .admin-product-card .product-title {
+            color: #e2e8f0;
+        }
+
+        .admin-product-card .product-category {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .admin-product-card .product-price {
+            font-size: 24px;
+            font-weight: 800;
+            color: #5D5CDE;
+            margin-bottom: 20px;
+        }
+
+        .admin-product-card .product-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .admin-action-btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .admin-action-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .admin-action-btn:hover::before {
+            left: 100%;
+        }
+
+        .admin-action-btn.edit {
+            background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+            color: white;
+        }
+
+        .admin-action-btn.edit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(74, 222, 128, 0.4);
+        }
+
+        .admin-action-btn.delete {
+            background: linear-gradient(135deg, #f87171 0%, #ef4444 100%);
+            color: white;
+        }
+
+        .admin-action-btn.delete:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(248, 113, 113, 0.4);
+        }
+
+        /* Enhanced Category Cards in Admin */
+        .admin-category-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .admin-category-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(93, 92, 222, 0.3);
+            border-color: #5D5CDE;
+        }
+
+        .dark .admin-category-card {
+            background-color: #2a2a2a;
+        }
+
+        .admin-category-card .category-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .admin-category-card .category-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: transform 0.6s ease;
+        }
+
+        .admin-category-card:hover .category-header::before {
+            transform: rotate(45deg) translateX(100%);
+        }
+
+        .admin-category-card .category-content {
+            padding: 25px;
+        }
+
+        .admin-category-card .category-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: white;
+        }
+
+        .admin-category-card .category-code {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .admin-category-card .category-description {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #64748b;
+            margin-bottom: 20px;
+        }
+
+        .dark .admin-category-card .category-description {
+            color: #94a3b8;
+        }
+
+        .admin-category-card .category-stats {
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .dark .admin-category-card .category-stats {
+            background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+        }
+
+        .admin-category-card .category-stats-number {
+            font-size: 24px;
+            font-weight: 800;
+            color: #5D5CDE;
+            display: block;
+        }
+
+        .admin-category-card .category-stats-label {
+            font-size: 12px;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 4px;
+        }
+
+        .dark .admin-category-card .category-stats-label {
+            color: #94a3b8;
         }
 
         .image-upload-container {
-            border: 2px dashed #ddd;
-            border-radius: 8px;
-            padding: 20px;
+            border: 3px dashed #d1d5db;
+            border-radius: 16px;
+            padding: 30px;
             text-align: center;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
             cursor: pointer;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image-upload-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(93, 92, 222, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .image-upload-container:hover::before {
+            left: 100%;
         }
 
         .image-upload-container:hover {
             border-color: #5D5CDE;
-            background-color: rgba(93, 92, 222, 0.05);
+            background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+            transform: translateY(-2px);
         }
 
         .image-upload-container.drag-over {
             border-color: #5D5CDE;
-            background-color: rgba(93, 92, 222, 0.1);
+            background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+            transform: scale(1.02);
+        }
+
+        .dark .image-upload-container {
+            background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+            border-color: #4b5563;
+        }
+
+        .dark .image-upload-container:hover {
+            background: linear-gradient(135deg, #581c87 0%, #7c2d12 100%);
         }
 
         .image-preview {
             max-width: 200px;
             max-height: 200px;
-            border-radius: 8px;
+            border-radius: 12px;
             margin: 10px auto;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
         }
 
         .error-message {
-            background-color: #FEF2F2;
-            border: 1px solid #FECACA;
-            color: #DC2626;
-            padding: 12px;
-            border-radius: 6px;
-            margin-bottom: 16px;
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            border: 2px solid #fca5a5;
+            color: #dc2626;
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .error-message::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, #dc2626 0%, #b91c1c 100%);
         }
 
         .dark .error-message {
-            background-color: #7F1D1D;
-            border-color: #991B1B;
-            color: #FCA5A5;
+            background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 100%);
+            border-color: #b91c1c;
+            color: #fca5a5;
         }
 
         .dashboard-card {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 15px;
-            padding: 25px;
+            border-radius: 20px;
+            padding: 30px;
             color: white;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dashboard-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -30%;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
         }
 
         .stats-card {
-            background-color: white;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease;
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b6b, #ffa500, #4ecdc4, #45b7d1);
+            background-size: 400% 400%;
+            animation: gradient-animation 3s ease infinite;
         }
 
         .stats-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            border-color: #5D5CDE;
         }
 
         .dark .stats-card {
@@ -465,52 +933,56 @@
 
         .payment-method-badge {
             display: inline-block;
-            padding: 4px 8px;
-            border-radius: 12px;
+            padding: 6px 12px;
+            border-radius: 20px;
             font-size: 12px;
-            font-weight: 500;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .payment-pix {
-            background-color: #32D74B;
+            background: linear-gradient(135deg, #32d74b 0%, #28a745 100%);
             color: white;
         }
 
         .payment-credit {
-            background-color: #007AFF;
+            background: linear-gradient(135deg, #007aff 0%, #0056b3 100%);
             color: white;
         }
 
         .payment-debit {
-            background-color: #FF9500;
+            background: linear-gradient(135deg, #ff9500 0%, #e68900 100%);
             color: white;
         }
 
         .payment-cash {
-            background-color: #34C759;
+            background: linear-gradient(135deg, #34c759 0%, #28a745 100%);
             color: white;
         }
 
         .status-badge {
             display: inline-block;
-            padding: 4px 8px;
-            border-radius: 12px;
+            padding: 6px 12px;
+            border-radius: 20px;
             font-size: 12px;
-            font-weight: 500;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .status-pending {
-            background-color: #FF9500;
+            background: linear-gradient(135deg, #ff9500 0%, #e68900 100%);
             color: white;
         }
 
         .status-delivered {
-            background-color: #34C759;
+            background: linear-gradient(135deg, #34c759 0%, #28a745 100%);
             color: white;
         }
 
         .status-cancelled {
-            background-color: #FF3B30;
+            background: linear-gradient(135deg, #ff3b30 0%, #dc2626 100%);
             color: white;
         }
 
@@ -525,34 +997,41 @@
         }
 
         .benefit-tag {
-            background-color: rgba(93, 92, 222, 0.1);
+            background: linear-gradient(135deg, rgba(93, 92, 222, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
             color: #5D5CDE;
-            padding: 4px 8px;
-            border-radius: 12px;
+            padding: 6px 12px;
+            border-radius: 20px;
             font-size: 12px;
-            font-weight: 500;
-            margin: 2px;
+            font-weight: 600;
+            margin: 4px;
             display: inline-block;
+            border: 1px solid rgba(93, 92, 222, 0.2);
         }
 
         .flavor-option {
-            padding: 8px 12px;
+            padding: 12px 16px;
             border: 2px solid #e5e7eb;
-            border-radius: 8px;
+            border-radius: 12px;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s ease;
             text-align: center;
             font-size: 14px;
+            font-weight: 600;
+            background: white;
         }
 
         .flavor-option:hover {
             border-color: #5D5CDE;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(93, 92, 222, 0.2);
         }
 
         .flavor-option.selected {
             border-color: #5D5CDE;
-            background-color: rgba(93, 92, 222, 0.1);
-            color: #5D5CDE;
+            background: linear-gradient(135deg, #5D5CDE 0%, #764ba2 100%);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(93, 92, 222, 0.4);
         }
 
         @media (max-width: 768px) {
@@ -566,6 +1045,18 @@
             
             .admin-form-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .admin-container {
+                padding: 15px;
+            }
+
+            .admin-section-header {
+                padding: 20px;
+            }
+
+            .admin-form-container {
+                padding: 25px;
             }
         }
 
@@ -791,7 +1282,7 @@
 
         <!-- Página de Admin -->
         <section id="admin" class="page">
-            <div class="container mx-auto px-4 py-8">
+            <div class="admin-container">
                 <div id="admin-login-required" class="text-center py-12">
                     <i class="fas fa-lock text-5xl text-primary mb-4"></i>
                     <h2 class="text-2xl font-bold mb-4">Área Restrita</h2>
@@ -802,34 +1293,49 @@
                 </div>
                 
                 <div id="admin-panel" class="hidden">
-                    <div class="flex justify-between items-center mb-8">
-                        <h2 class="text-3xl font-bold">Painel Administrativo</h2>
-                        <button id="admin-logout-btn" class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition">
-                            <i class="fas fa-sign-out-alt mr-2"></i> Sair
-                        </button>
+                    <div class="admin-section-header animate-slide-up">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h2 class="text-4xl font-bold mb-2">Painel Administrativo</h2>
+                                <p class="text-lg opacity-90">Gerencie seus produtos, categorias e pedidos</p>
+                            </div>
+                            <button id="admin-logout-btn" class="px-6 py-3 bg-white bg-opacity-20 text-white rounded-lg hover:bg-opacity-30 transition backdrop-blur-sm">
+                                <i class="fas fa-sign-out-alt mr-2"></i> Sair
+                            </button>
+                        </div>
                     </div>
                     
                     <!-- Barra de navegação administrativa -->
-                    <div class="admin-nav mb-8">
+                    <div class="admin-nav animate-slide-left">
                         <ul class="admin-nav-tabs">
-                            <li class="admin-nav-item active" data-tab="dashboard">Dashboard</li>
-                            <li class="admin-nav-item" data-tab="products">Produtos</li>
-                            <li class="admin-nav-item" data-tab="categories">Categorias</li>
-                            <li class="admin-nav-item" data-tab="orders">Pedidos</li>
-                            <li class="admin-nav-item" data-tab="settings">Configurações</li>
+                            <li class="admin-nav-item active" data-tab="dashboard">
+                                <i class="fas fa-tachometer-alt mr-2"></i> Dashboard
+                            </li>
+                            <li class="admin-nav-item" data-tab="products">
+                                <i class="fas fa-box mr-2"></i> Produtos
+                            </li>
+                            <li class="admin-nav-item" data-tab="categories">
+                                <i class="fas fa-tags mr-2"></i> Categorias
+                            </li>
+                            <li class="admin-nav-item" data-tab="orders">
+                                <i class="fas fa-shopping-bag mr-2"></i> Pedidos
+                            </li>
+                            <li class="admin-nav-item" data-tab="settings">
+                                <i class="fas fa-cog mr-2"></i> Configurações
+                            </li>
                         </ul>
                     </div>
                     
                     <!-- Tab de Dashboard -->
-                    <div id="admin-tab-dashboard" class="admin-tab">
+                    <div id="admin-tab-dashboard" class="admin-tab animate-scale">
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                             <div class="stats-card">
                                 <div class="flex items-center justify-between">
                                     <div>
-                                        <p class="text-gray-500 dark:text-gray-400 text-sm">Vendas Hoje</p>
-                                        <p class="text-2xl font-bold text-primary" id="sales-today">R$ 0,00</p>
+                                        <p class="text-gray-500 dark:text-gray-400 text-sm font-semibold uppercase tracking-wide">Vendas Hoje</p>
+                                        <p class="text-3xl font-bold text-primary mt-2" id="sales-today">R$ 0,00</p>
                                     </div>
-                                    <div class="text-3xl text-primary">
+                                    <div class="text-4xl text-primary">
                                         <i class="fas fa-chart-line"></i>
                                     </div>
                                 </div>
@@ -838,10 +1344,10 @@
                             <div class="stats-card">
                                 <div class="flex items-center justify-between">
                                     <div>
-                                        <p class="text-gray-500 dark:text-gray-400 text-sm">Vendas Mês</p>
-                                        <p class="text-2xl font-bold text-green-600" id="sales-month">R$ 0,00</p>
+                                        <p class="text-gray-500 dark:text-gray-400 text-sm font-semibold uppercase tracking-wide">Vendas Mês</p>
+                                        <p class="text-3xl font-bold text-green-600 mt-2" id="sales-month">R$ 0,00</p>
                                     </div>
-                                    <div class="text-3xl text-green-600">
+                                    <div class="text-4xl text-green-600">
                                         <i class="fas fa-calendar-alt"></i>
                                     </div>
                                 </div>
@@ -850,10 +1356,10 @@
                             <div class="stats-card">
                                 <div class="flex items-center justify-between">
                                     <div>
-                                        <p class="text-gray-500 dark:text-gray-400 text-sm">Pedidos Pendentes</p>
-                                        <p class="text-2xl font-bold text-orange-600" id="pending-orders">0</p>
+                                        <p class="text-gray-500 dark:text-gray-400 text-sm font-semibold uppercase tracking-wide">Pedidos Pendentes</p>
+                                        <p class="text-3xl font-bold text-orange-600 mt-2" id="pending-orders">0</p>
                                     </div>
-                                    <div class="text-3xl text-orange-600">
+                                    <div class="text-4xl text-orange-600">
                                         <i class="fas fa-clock"></i>
                                     </div>
                                 </div>
@@ -862,10 +1368,10 @@
                             <div class="stats-card">
                                 <div class="flex items-center justify-between">
                                     <div>
-                                        <p class="text-gray-500 dark:text-gray-400 text-sm">Total Produtos</p>
-                                        <p class="text-2xl font-bold text-blue-600" id="total-products">0</p>
+                                        <p class="text-gray-500 dark:text-gray-400 text-sm font-semibold uppercase tracking-wide">Total Produtos</p>
+                                        <p class="text-3xl font-bold text-blue-600 mt-2" id="total-products">0</p>
                                     </div>
-                                    <div class="text-3xl text-blue-600">
+                                    <div class="text-4xl text-blue-600">
                                         <i class="fas fa-box"></i>
                                     </div>
                                 </div>
@@ -873,8 +1379,8 @@
                         </div>
                         
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                            <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-                                <h3 class="text-xl font-bold mb-4">Últimos Pedidos</h3>
+                            <div class="bg-white dark:bg-gray-800 rounded-20 shadow-xl p-8 border-2 border-transparent hover:border-primary transition-all">
+                                <h3 class="text-2xl font-bold mb-6 text-gray-800 dark:text-white">Últimos Pedidos</h3>
                                 <div id="recent-orders">
                                     <div class="text-center py-8 text-gray-500">
                                         <i class="fas fa-shopping-bag text-3xl mb-2"></i>
@@ -883,8 +1389,8 @@
                                 </div>
                             </div>
                             
-                            <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-                                <h3 class="text-xl font-bold mb-4">Produtos Mais Vendidos</h3>
+                            <div class="bg-white dark:bg-gray-800 rounded-20 shadow-xl p-8 border-2 border-transparent hover:border-primary transition-all">
+                                <h3 class="text-2xl font-bold mb-6 text-gray-800 dark:text-white">Produtos Mais Vendidos</h3>
                                 <div id="top-products">
                                     <div class="text-center py-8 text-gray-500">
                                         <i class="fas fa-chart-bar text-3xl mb-2"></i>
@@ -897,96 +1403,133 @@
                     
                     <!-- Tab de Produtos -->
                     <div id="admin-tab-products" class="admin-tab hidden">
-                        <div class="flex justify-between items-center mb-6">
-                            <h3 class="text-xl font-bold">Gerenciar Produtos</h3>
-                            <button id="add-product-btn" class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition">
-                                <i class="fas fa-plus mr-2"></i> Adicionar Produto
-                            </button>
+                        <div class="admin-section-header animate-slide-up">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <h3 class="text-3xl font-bold mb-2">
+                                        <i class="fas fa-box mr-3"></i>Gerenciar Produtos
+                                    </h3>
+                                    <p class="text-lg opacity-90">Adicione, edite e organize seus produtos</p>
+                                </div>
+                                <button id="add-product-btn" class="px-8 py-4 bg-white bg-opacity-20 text-white rounded-lg hover:bg-opacity-30 transition backdrop-blur-sm font-semibold">
+                                    <i class="fas fa-plus mr-2"></i> Adicionar Produto
+                                </button>
+                            </div>
                         </div>
                         
                         <!-- Formulário para adicionar/editar produto -->
-                        <div id="product-form-container" class="admin-form-container hidden mb-8">
-                            <h3 id="product-form-title" class="text-xl font-bold mb-6">Adicionar Novo Produto</h3>
+                        <div id="product-form-container" class="admin-form-container hidden animate-scale mb-8">
+                            <h3 id="product-form-title" class="text-2xl font-bold mb-8 text-gray-800 dark:text-white">
+                                <i class="fas fa-plus-circle mr-3 text-primary"></i>Adicionar Novo Produto
+                            </h3>
                             <div id="product-form-error" class="error-message hidden"></div>
                             <form id="product-form" class="admin-form-grid">
                                 <div class="admin-form-group">
-                                    <label for="product-name">Nome do Produto*</label>
+                                    <label for="product-name">
+                                        <i class="fas fa-tag mr-2"></i>Nome do Produto*
+                                    </label>
                                     <input type="text" id="product-name" class="admin-form-input" required>
                                 </div>
                                 
                                 <div class="admin-form-group">
-                                    <label for="product-category">Categoria*</label>
+                                    <label for="product-category">
+                                        <i class="fas fa-folder mr-2"></i>Categoria*
+                                    </label>
                                     <select id="product-category" class="admin-form-select" required>
                                         <option value="">Selecione uma categoria</option>
                                     </select>
                                 </div>
                                 
                                 <div class="admin-form-group">
-                                    <label for="product-price">Preço (R$)*</label>
+                                    <label for="product-price">
+                                        <i class="fas fa-dollar-sign mr-2"></i>Preço (R$)*
+                                    </label>
                                     <input type="number" id="product-price" class="admin-form-input" step="0.01" min="0" required>
                                 </div>
                                 
                                 <div class="admin-form-group">
-                                    <label for="product-old-price">Preço Antigo (R$)</label>
+                                    <label for="product-old-price">
+                                        <i class="fas fa-percentage mr-2"></i>Preço Antigo (R$)
+                                    </label>
                                     <input type="number" id="product-old-price" class="admin-form-input" step="0.01" min="0">
                                 </div>
                                 
                                 <div class="admin-form-group">
-                                    <label for="product-weight">Peso/Gramas*</label>
+                                    <label for="product-weight">
+                                        <i class="fas fa-weight mr-2"></i>Peso/Gramas*
+                                    </label>
                                     <input type="text" id="product-weight" class="admin-form-input" placeholder="ex: 1kg, 500g, 2.5kg" required>
                                 </div>
                                 
                                 <div class="admin-form-group">
-                                    <label for="product-brand">Marca</label>
+                                    <label for="product-brand">
+                                        <i class="fas fa-industry mr-2"></i>Marca
+                                    </label>
                                     <input type="text" id="product-brand" class="admin-form-input" placeholder="ex: Optimum Nutrition">
                                 </div>
                                 
                                 <div class="admin-form-group col-span-2">
-                                    <label for="product-flavors">Sabores Disponíveis*</label>
+                                    <label for="product-flavors">
+                                        <i class="fas fa-ice-cream mr-2"></i>Sabores Disponíveis*
+                                    </label>
                                     <input type="text" id="product-flavors" class="admin-form-input" placeholder="Separados por vírgula: Chocolate, Baunilha, Morango" required>
-                                    <small class="text-gray-500">Separe os sabores por vírgula</small>
+                                    <small class="text-gray-500 dark:text-gray-400 mt-2 block">Separe os sabores por vírgula</small>
                                 </div>
                                 
                                 <div class="admin-form-group col-span-2">
-                                    <label for="product-benefits">Benefícios/Para que serve*</label>
+                                    <label for="product-benefits">
+                                        <i class="fas fa-heart mr-2"></i>Benefícios/Para que serve*
+                                    </label>
                                     <textarea id="product-benefits" class="admin-form-textarea" placeholder="ex: Ganho de massa muscular, Recuperação pós-treino, Aumento da força..." required></textarea>
                                 </div>
                                 
                                 <div class="admin-form-group col-span-2">
-                                    <label for="product-ingredients">Ingredientes Principais</label>
+                                    <label for="product-ingredients">
+                                        <i class="fas fa-list mr-2"></i>Ingredientes Principais
+                                    </label>
                                     <input type="text" id="product-ingredients" class="admin-form-input" placeholder="Separados por vírgula: Whey Protein, BCAA, Creatina">
                                 </div>
                                 
                                 <div class="admin-form-group col-span-2">
-                                    <label for="product-usage">Modo de Uso</label>
+                                    <label for="product-usage">
+                                        <i class="fas fa-info-circle mr-2"></i>Modo de Uso
+                                    </label>
                                     <textarea id="product-usage" class="admin-form-textarea" placeholder="Como usar o produto, dosagem recomendada..."></textarea>
                                 </div>
                                 
                                 <div class="admin-form-group col-span-2">
-                                    <label for="product-images">Imagens do Produto*</label>
+                                    <label for="product-images">
+                                        <i class="fas fa-images mr-2"></i>Imagens do Produto*
+                                    </label>
                                     <div class="image-upload-container" id="product-image-upload">
-                                        <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-2"></i>
-                                        <p class="text-gray-600 dark:text-gray-400">Clique aqui ou arraste imagens para fazer upload</p>
-                                        <p class="text-xs text-gray-500 mt-2">Formatos aceitos: JPG, PNG, WEBP</p>
+                                        <i class="fas fa-cloud-upload-alt text-5xl text-gray-400 mb-4"></i>
+                                        <p class="text-gray-600 dark:text-gray-400 font-semibold">Clique aqui ou arraste imagens para fazer upload</p>
+                                        <p class="text-sm text-gray-500 mt-2">Formatos aceitos: JPG, PNG, WEBP (Máx. 5MB cada)</p>
                                         <input type="file" id="product-images-input" class="hidden" multiple accept="image/*">
                                     </div>
                                     <div id="product-images-preview" class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4"></div>
                                 </div>
                                 
                                 <div class="admin-form-group col-span-2">
-                                    <label for="product-description">Descrição Completa*</label>
+                                    <label for="product-description">
+                                        <i class="fas fa-align-left mr-2"></i>Descrição Completa*
+                                    </label>
                                     <textarea id="product-description" class="admin-form-textarea" required></textarea>
                                 </div>
                                 
-                                <div class="col-span-2 flex justify-end gap-4 mt-4">
-                                    <button type="button" id="cancel-product-btn" class="admin-form-button secondary">Cancelar</button>
-                                    <button type="submit" id="save-product-btn" class="admin-form-button">Salvar Produto</button>
+                                <div class="col-span-2 flex justify-end gap-4 mt-6">
+                                    <button type="button" id="cancel-product-btn" class="admin-form-button secondary">
+                                        <i class="fas fa-times mr-2"></i>Cancelar
+                                    </button>
+                                    <button type="submit" id="save-product-btn" class="admin-form-button">
+                                        <i class="fas fa-save mr-2"></i>Salvar Produto
+                                    </button>
                                 </div>
                             </form>
                         </div>
                         
                         <!-- Lista de produtos -->
-                        <div id="admin-products-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div id="admin-products-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
                             <div class="flex justify-center items-center py-12 col-span-full">
                                 <div class="spinner"></div>
                             </div>
@@ -995,56 +1538,77 @@
                     
                     <!-- Tab de Categorias -->
                     <div id="admin-tab-categories" class="admin-tab hidden">
-                        <div class="flex justify-between items-center mb-6">
-                            <h3 class="text-xl font-bold">Gerenciar Categorias</h3>
-                            <button id="add-category-btn" class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition">
-                                <i class="fas fa-plus mr-2"></i> Adicionar Categoria
-                            </button>
+                        <div class="admin-section-header animate-slide-up">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <h3 class="text-3xl font-bold mb-2">
+                                        <i class="fas fa-tags mr-3"></i>Gerenciar Categorias
+                                    </h3>
+                                    <p class="text-lg opacity-90">Organize seus produtos em categorias</p>
+                                </div>
+                                <button id="add-category-btn" class="px-8 py-4 bg-white bg-opacity-20 text-white rounded-lg hover:bg-opacity-30 transition backdrop-blur-sm font-semibold">
+                                    <i class="fas fa-plus mr-2"></i> Adicionar Categoria
+                                </button>
+                            </div>
                         </div>
                         
                         <!-- Formulário para adicionar/editar categoria -->
-                        <div id="category-form-container" class="admin-form-container hidden mb-8">
-                            <h3 id="category-form-title" class="text-xl font-bold mb-6">Adicionar Nova Categoria</h3>
+                        <div id="category-form-container" class="admin-form-container hidden animate-scale mb-8">
+                            <h3 id="category-form-title" class="text-2xl font-bold mb-8 text-gray-800 dark:text-white">
+                                <i class="fas fa-plus-circle mr-3 text-primary"></i>Adicionar Nova Categoria
+                            </h3>
                             <div id="category-form-error" class="error-message hidden"></div>
                             <form id="category-form">
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                                     <div class="admin-form-group">
-                                        <label for="category-name">Nome da Categoria*</label>
+                                        <label for="category-name">
+                                            <i class="fas fa-tag mr-2"></i>Nome da Categoria*
+                                        </label>
                                         <input type="text" id="category-name" class="admin-form-input" required>
                                     </div>
                                     
                                     <div class="admin-form-group">
-                                        <label for="category-code">Código da Categoria*</label>
+                                        <label for="category-code">
+                                            <i class="fas fa-code mr-2"></i>Código da Categoria*
+                                        </label>
                                         <input type="text" id="category-code" class="admin-form-input" required placeholder="ex: whey, creatine, etc">
-                                        <small class="text-gray-500">Apenas letras minúsculas, números e hífens</small>
+                                        <small class="text-gray-500 dark:text-gray-400 mt-2 block">Apenas letras minúsculas, números e hífens</small>
                                     </div>
                                     
                                     <div class="admin-form-group col-span-2">
-                                        <label for="category-description">Descrição*</label>
+                                        <label for="category-description">
+                                            <i class="fas fa-align-left mr-2"></i>Descrição*
+                                        </label>
                                         <textarea id="category-description" class="admin-form-textarea" required></textarea>
                                     </div>
                                     
                                     <div class="admin-form-group col-span-2">
-                                        <label for="category-image">Imagem da Categoria</label>
+                                        <label for="category-image">
+                                            <i class="fas fa-image mr-2"></i>Imagem da Categoria
+                                        </label>
                                         <div class="image-upload-container" id="category-image-upload">
-                                            <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-2"></i>
-                                            <p class="text-gray-600 dark:text-gray-400">Clique aqui ou arraste uma imagem para fazer upload</p>
-                                            <p class="text-xs text-gray-500 mt-2">Formato recomendado: 300x300px</p>
+                                            <i class="fas fa-cloud-upload-alt text-5xl text-gray-400 mb-4"></i>
+                                            <p class="text-gray-600 dark:text-gray-400 font-semibold">Clique aqui ou arraste uma imagem para fazer upload</p>
+                                            <p class="text-sm text-gray-500 mt-2">Formato recomendado: 300x300px (JPG, PNG, WEBP)</p>
                                             <input type="file" id="category-image-input" class="hidden" accept="image/*">
                                         </div>
                                         <div id="category-image-preview" class="mt-4"></div>
                                     </div>
                                     
-                                    <div class="col-span-2 flex justify-end gap-4 mt-4">
-                                        <button type="button" id="cancel-category-btn" class="admin-form-button secondary">Cancelar</button>
-                                        <button type="submit" id="save-category-btn" class="admin-form-button">Salvar Categoria</button>
+                                    <div class="col-span-2 flex justify-end gap-4 mt-6">
+                                        <button type="button" id="cancel-category-btn" class="admin-form-button secondary">
+                                            <i class="fas fa-times mr-2"></i>Cancelar
+                                        </button>
+                                        <button type="submit" id="save-category-btn" class="admin-form-button">
+                                            <i class="fas fa-save mr-2"></i>Salvar Categoria
+                                        </button>
                                     </div>
                                 </div>
                             </form>
                         </div>
                         
                         <!-- Lista de categorias -->
-                        <div id="admin-categories-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div id="admin-categories-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
                             <div class="flex justify-center items-center py-12 col-span-full">
                                 <div class="spinner"></div>
                             </div>
@@ -1968,7 +2532,7 @@
             setupProductEvents();
         }
 
-        // Carregar produtos admin
+        // Carregar produtos admin com design melhorado
         function loadAdminProducts() {
             const container = document.getElementById('admin-products-grid');
             if (!container) return;
@@ -1976,28 +2540,40 @@
             let html = '';
             productsDB.forEach(product => {
                 const imageUrl = Array.isArray(product.images) ? product.images[0] : product.image_url;
+                const categoryName = categoryData[product.category]?.name || product.category;
+                
                 html += `
-                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
-                        <div class="h-32 bg-gray-100 dark:bg-gray-700 rounded mb-3 flex items-center justify-center">
-                            <img src="${imageUrl}" alt="${product.name}" class="max-h-full max-w-full object-contain">
+                    <div class="admin-product-card animate-scale">
+                        <div class="product-image-container">
+                            <img src="${imageUrl}" alt="${product.name}" class="max-h-full max-w-full object-contain relative z-10">
                         </div>
-                        <h3 class="font-bold mb-2">${product.name}</h3>
-                        <p class="text-primary font-bold mb-3">${formatCurrency(product.price)}</p>
-                        <div class="flex gap-2">
-                            <button class="edit-product-btn flex-1 bg-blue-500 text-white px-3 py-1 rounded text-sm" data-id="${product.ps_product_id}">Editar</button>
-                            <button class="delete-product-btn flex-1 bg-red-500 text-white px-3 py-1 rounded text-sm" data-id="${product.ps_product_id}">Excluir</button>
+                        <div class="product-content">
+                            <span class="product-category">${categoryName}</span>
+                            <h3 class="product-title">${product.name}</h3>
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="product-price">${formatCurrency(product.price)}</div>
+                                <div class="text-sm text-gray-500 dark:text-gray-400">${product.weight || ''}</div>
+                            </div>
+                            <div class="product-actions">
+                                <button class="admin-action-btn edit edit-product-btn" data-id="${product.ps_product_id}">
+                                    <i class="fas fa-edit mr-2"></i>Editar
+                                </button>
+                                <button class="admin-action-btn delete delete-product-btn" data-id="${product.ps_product_id}">
+                                    <i class="fas fa-trash mr-2"></i>Excluir
+                                </button>
+                            </div>
                         </div>
                     </div>
                 `;
             });
 
-            container.innerHTML = html || '<div class="col-span-full text-center py-12">Nenhum produto encontrado</div>';
+            container.innerHTML = html || '<div class="col-span-full text-center py-12 text-gray-500">Nenhum produto encontrado</div>';
 
             // Adicionar eventos
             setupAdminProductEvents();
         }
 
-        // Carregar categorias admin
+        // Carregar categorias admin com design melhorado
         function loadAdminCategories() {
             const container = document.getElementById('admin-categories-grid');
             if (!container) return;
@@ -2005,28 +2581,34 @@
             let html = '';
             Object.keys(categoryData).forEach(code => {
                 const category = categoryData[code];
+                const productCount = productsDB.filter(p => p.category === code).length;
+                
                 html += `
-                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
-                        <div class="flex items-center mb-3">
-                            ${category.image_url ? 
-                                `<img src="${category.image_url}" alt="${category.name}" class="w-12 h-12 object-cover rounded mr-3">` :
-                                `<div class="w-12 h-12 bg-gray-200 rounded mr-3 flex items-center justify-center"><i class="fas fa-tag"></i></div>`
-                            }
-                            <div>
-                                <h3 class="font-bold">${category.name}</h3>
-                                <p class="text-sm text-gray-500">${code}</p>
-                            </div>
+                    <div class="admin-category-card animate-scale">
+                        <div class="category-header">
+                            <h3 class="category-title">${category.name}</h3>
+                            <span class="category-code">${code}</span>
                         </div>
-                        <p class="text-sm mb-3">${category.description}</p>
-                        <div class="flex gap-2">
-                            <button class="edit-category-btn flex-1 bg-blue-500 text-white px-3 py-1 rounded text-sm" data-id="${category.ps_category_id}">Editar</button>
-                            <button class="delete-category-btn flex-1 bg-red-500 text-white px-3 py-1 rounded text-sm" data-id="${category.ps_category_id}">Excluir</button>
+                        <div class="category-content">
+                            <p class="category-description">${category.description}</p>
+                            <div class="category-stats">
+                                <span class="category-stats-number">${productCount}</span>
+                                <span class="category-stats-label">Produtos</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="admin-action-btn edit edit-category-btn" data-id="${category.ps_category_id}">
+                                    <i class="fas fa-edit mr-2"></i>Editar
+                                </button>
+                                <button class="admin-action-btn delete delete-category-btn" data-id="${category.ps_category_id}">
+                                    <i class="fas fa-trash mr-2"></i>Excluir
+                                </button>
+                            </div>
                         </div>
                     </div>
                 `;
             });
 
-            container.innerHTML = html || '<div class="col-span-full text-center py-12">Nenhuma categoria encontrada</div>';
+            container.innerHTML = html || '<div class="col-span-full text-center py-12 text-gray-500">Nenhuma categoria encontrada</div>';
 
             // Adicionar eventos
             setupAdminCategoryEvents();
@@ -2577,7 +3159,7 @@
             document.getElementById('product-usage').value = product.usage || '';
             document.getElementById('product-description').value = product.description;
             
-            document.getElementById('product-form-title').textContent = 'Editar Produto';
+            document.getElementById('product-form-title').innerHTML = '<i class="fas fa-edit mr-3 text-primary"></i>Editar Produto';
             document.getElementById('product-form-container').classList.remove('hidden');
             hideFormError('product');
         }
@@ -2593,7 +3175,7 @@
             document.getElementById('category-code').value = category.code;
             document.getElementById('category-description').value = category.description;
             
-            document.getElementById('category-form-title').textContent = 'Editar Categoria';
+            document.getElementById('category-form-title').innerHTML = '<i class="fas fa-edit mr-3 text-primary"></i>Editar Categoria';
             document.getElementById('category-form-container').classList.remove('hidden');
             hideFormError('category');
         }
@@ -3067,7 +3649,7 @@
                 currentEditingId = null;
                 document.getElementById('product-form').reset();
                 document.getElementById('product-images-preview').innerHTML = '';
-                document.getElementById('product-form-title').textContent = 'Adicionar Novo Produto';
+                document.getElementById('product-form-title').innerHTML = '<i class="fas fa-plus-circle mr-3 text-primary"></i>Adicionar Novo Produto';
                 document.getElementById('product-form-container').classList.remove('hidden');
                 hideFormError('product');
             });
@@ -3127,7 +3709,7 @@
                 currentEditingId = null;
                 document.getElementById('category-form').reset();
                 document.getElementById('category-image-preview').innerHTML = '';
-                document.getElementById('category-form-title').textContent = 'Adicionar Nova Categoria';
+                document.getElementById('category-form-title').innerHTML = '<i class="fas fa-plus-circle mr-3 text-primary"></i>Adicionar Nova Categoria';
                 document.getElementById('category-form-container').classList.remove('hidden');
                 hideFormError('category');
             });
