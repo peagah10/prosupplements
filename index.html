@@ -233,12 +233,41 @@
                 margin-bottom: 0;
                 border-radius: 8px;
                 box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                cursor: pointer;
             }
             
             .product-card .product-name {
                 font-size: 0.75rem;
                 white-space: normal;
                 height: auto;
+                line-height: 1.2;
+            }
+            
+            .product-card .product-price {
+                font-size: 0.9rem;
+            }
+            
+            .product-card .add-to-cart-btn {
+                padding: 4px 8px;
+                font-size: 0.7rem;
+                border-radius: 4px;
+            }
+            
+            .product-card .add-to-cart-btn i {
+                font-size: 0.6rem;
+                margin-right: 2px;
+            }
+            
+            .product-card .p-4 {
+                padding: 8px;
+            }
+            
+            .product-card .h-48 {
+                height: 120px;
+            }
+            
+            .product-card .mb-3 {
+                margin-bottom: 8px;
             }
         }
 
@@ -1916,19 +1945,18 @@
             filteredProducts.forEach(product => {
                 const imageUrl = Array.isArray(product.images) ? product.images[0] : product.image_url;
                 html += `
-                    <div class="product-card bg-white dark:bg-gray-800 transition-all">
+                    <div class="product-card bg-white dark:bg-gray-800 transition-all" data-product-id="${product.ps_product_id}">
                         <div class="relative h-48 bg-gray-100 dark:bg-gray-700 flex items-center justify-center p-4">
                             <img src="${imageUrl}" alt="${product.name}" class="max-h-full max-w-full object-contain">
                         </div>
                         <div class="p-4">
                             <h3 class="product-name text-lg font-semibold mb-2">${product.name}</h3>
                             <div class="flex items-center justify-between mb-3">
-                                <div class="text-xl font-bold text-primary">${formatCurrency(product.price)}</div>
-                                <button class="add-to-cart-btn bg-primary text-white py-2 px-3 rounded-lg hover:bg-opacity-90 transition" data-product-id="${product.ps_product_id}">
+                                <div class="text-xl font-bold text-primary product-price">${formatCurrency(product.price)}</div>
+                                <button class="add-to-cart-btn bg-primary text-white py-2 px-3 rounded-lg hover:bg-opacity-90 transition" data-product-id="${product.ps_product_id}" onclick="event.stopPropagation()">
                                     <i class="fas fa-shopping-cart mr-1"></i> Adicionar
                                 </button>
                             </div>
-                            <button class="view-details-btn w-full text-center text-sm text-primary hover:underline" data-product-id="${product.ps_product_id}">Ver detalhes</button>
                         </div>
                     </div>
                 `;
@@ -2146,15 +2174,16 @@
             document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     e.preventDefault();
+                    e.stopPropagation();
                     const productId = parseInt(btn.getAttribute('data-product-id'));
                     addToCart(productId);
                 });
             });
 
-            document.querySelectorAll('.view-details-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const productId = parseInt(btn.getAttribute('data-product-id'));
+            // Adicionar evento de clique no produto inteiro para abrir modal
+            document.querySelectorAll('.product-card').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    const productId = parseInt(card.getAttribute('data-product-id'));
                     openProductModal(productId);
                 });
             });
